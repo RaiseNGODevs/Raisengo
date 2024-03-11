@@ -5,21 +5,20 @@ public class ClientReportTask {
     public String notes 	{get; set;}
     public Decimal duration 	{get; set;}
     
-    public ClientReportTask(TASKRAY__trTaskTime__c taskTime){
-        this.taskName = taskTime.TASKRAY__Task__r.Name.escapeEcmaScript();
-        this.executionDate = taskTime.TASKRAY__Date__c;
-        this.duration = taskTime.TASKRAY__Hours__c;
-        if( String.isNotBlank(taskTime.TASKRAY__Notes__c) )
-        	this.notes = taskTime.TASKRAY__Notes__c.escapeEcmaScript();
+    public ClientReportTask(TimeEntry__c taskTime){
+        this.taskName = taskTime.CaseId__r == null ? '' : taskTime.CaseId__r.Subject.escapeEcmaScript();
+        this.executionDate = taskTime.StartTime__c.date();
+        this.duration = taskTime.TrackedTime__c;
+        if( String.isNotBlank(taskTime.Description__c) )
+        	this.notes = taskTime.Description__c.escapeEcmaScript();
     }
     
-    public static List<ClientReportTask> getClientReportTasks(List<TASKRAY__trTaskTime__c> taskTimes){
+    public static List<ClientReportTask> getClientReportTasks(List<TimeEntry__c> taskTimes){
         List<ClientReportTask> taskList = new List<ClientReportTask>();
-        for( TASKRAY__trTaskTime__c taskTime : taskTimes ){
-            if( String.isNotBlank(taskTime.TASKRAY__Notes__c) )
+        for( TimeEntry__c taskTime : taskTimes ){
+            if( String.isNotBlank(taskTime.Description__c) )
             	taskList.add(new ClientReportTask(taskTime));
         }
         return taskList;
     }
-    
 }

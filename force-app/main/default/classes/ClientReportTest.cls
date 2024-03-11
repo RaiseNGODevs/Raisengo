@@ -4,15 +4,16 @@ public class ClientReportTest {
     @isTest
     public static void reportCreation(){
         String projectName = 'Test Project', taskName = 'Test Task', timeName = 'TIME-1', timeNote = 'DG: Time Note';
-        Date taskTimeDate = Date.today();
+        DateTime startDate = Datetime.now().addHours(-3);
+        DateTime endDate = Datetime.now();
         Decimal contractedHours = 10, timeHours = 3;
-        TASKRAY__Project__c project = new TASKRAY__Project__c(Name = projectName, Contracted_Hours__c = contractedHours);
+        ServiceContract project = new ServiceContract(Name = projectName, TotalHoursPerContract__c = contractedHours);
         insert project;
-        TASKRAY__Project_Task__c task = new TASKRAY__Project_Task__c(Name = taskName, TASKRAY__Project__c = project.Id);
+        Case task = new Case(Subject = taskName, Service_Contract__c = project.Id, Status = 'New', Origin = 'Email');
         insert task;
-       	TASKRAY__trTaskTime__c taskrayTime = new TASKRAY__trTaskTime__c(TASKRAY__Project__c = project.Id, TASKRAY__Hours__c = timeHours, TASKRAY__Billable__c = true, 
-                                                                        TASKRAY__Notes__c = timeNote, TASKRAY__Date__c = taskTimeDate, TASKRAY__Task__c = task.Id);
-        insert taskrayTime;
+       	TimeEntry__c timeEntry = new TimeEntry__c(Service_Contract__c = project.Id,  isBillable__c = true, 
+                                                                        Description__c = timeNote, StartTime__c = startDate, EndTime__c = endDate, CaseId__c = task.ID);
+        insert timeEntry;
         ClientReport report = new ClientReport(project.Id);
         
         System.assert(report.projectId == project.Id);
@@ -20,7 +21,7 @@ public class ClientReportTest {
         System.assert(report.contractedHours == contractedHours);
         System.assert(report.tasks != null);
         for( ClientReportTask reportTask : report.tasks ){
-        	System.assertEquals(taskTimeDate, reportTask.executionDate);
+        	System.assertEquals(Date.today(), reportTask.executionDate);
             System.assertEquals(taskName, reportTask.taskName);
             System.assertEquals(timeNote, reportTask.notes);
         	System.assertEquals(timeHours, reportTask.duration);
