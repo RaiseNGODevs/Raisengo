@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Severity__c</fullName>
+    <description>Incident severity in order to classify the</description>
+    <externalId>false</externalId>
+    <inlineHelpText>1 - Critical - Entire system or business process is unusable or does not meet the needs of the business, many users affected and no workaround is available.
+
+2 - High - Part of the system or key business process is unusable or does not meet the needs of the business, few users affected and/or a workaround is available.
+
+3 - Medium - A non-critical incident occurs typically affecting few users. The incident affects the ability to provide the best service but there is a workaround.</inlineHelpText>
+    <label>Severity</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1 - Critical</fullName>
+                <default>false</default>
+                <label>1 - Critical</label>
+            </value>
+            <value>
+                <fullName>2 - High</fullName>
+                <default>false</default>
+                <label>2 - High</label>
+            </value>
+            <value>
+                <fullName>3 - Medium</fullName>
+                <default>false</default>
+                <label>3 - Medium</label>
+            </value>
+            <value>
+                <fullName>4 - Low</fullName>
+                <default>false</default>
+                <label>4 - Low</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
