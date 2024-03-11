@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Contract</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>Contract Path</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>ContractedHours__c</fieldNames>
+        <fieldNames>ContractTerm</fieldNames>
+        <fieldNames>StartDate</fieldNames>
+        <fieldNames>EndDate</fieldNames>
+        <info>&lt;p&gt;⚠️ Fill the respective fields in order to activate the contract, and if it&amp;#39;s a support contract, to create the entitlement correctly&lt;/p&gt;</info>
+        <picklistValueName>Activated</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>__MASTER__</recordTypeName>
+</PathAssistant>
