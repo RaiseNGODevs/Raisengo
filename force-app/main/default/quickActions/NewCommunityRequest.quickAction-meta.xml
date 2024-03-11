@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>New Incident</label>
+    <label>New Request</label>
     <optionsCreateFeedItem>true</optionsCreateFeedItem>
     <quickActionLayout>
         <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
@@ -8,16 +8,11 @@
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
                 <field>ContactId</field>
-                <uiBehavior>Required</uiBehavior>
+                <uiBehavior>Edit</uiBehavior>
             </quickActionLayoutItems>
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
                 <field>Type</field>
-                <uiBehavior>Required</uiBehavior>
-            </quickActionLayoutItems>
-            <quickActionLayoutItems>
-                <emptySpace>false</emptySpace>
-                <field>Severity__c</field>
                 <uiBehavior>Required</uiBehavior>
             </quickActionLayoutItems>
             <quickActionLayoutItems>
@@ -33,8 +28,8 @@
         </quickActionLayoutColumns>
         <quickActionLayoutColumns/>
     </quickActionLayout>
-    <successMessage>Incident Created</successMessage>
+    <successMessage>Request Created</successMessage>
     <targetObject>Case</targetObject>
-    <targetRecordType>Case.Incidents</targetRecordType>
+    <targetRecordType>Case.Requests</targetRecordType>
     <type>Create</type>
 </QuickAction>
