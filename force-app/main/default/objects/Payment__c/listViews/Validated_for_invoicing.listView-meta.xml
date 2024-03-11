@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validated_for_invoicing</fullName>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Scheduled_Date__c</columns>
+    <columns>Payment_Amount__c</columns>
+    <columns>VAT_percentage__c</columns>
+    <columns>Invoice_Description__c</columns>
+    <columns>Invoice_ID__c</columns>
+    <columns>Invoice_Sent__c</columns>
+    <columns>Send_Invoices_to__c</columns>
+    <columns>Invoice_Obs__c</columns>
+    <columns>Opportunity__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Entry_Date__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Invoice_Sent__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Scheduled_Date__c</field>
+        <operation>lessOrEqual</operation>
+        <value>THIS_MONTH</value>
+    </filters>
+    <filters>
+        <field>Validated__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Invoice_ID__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>Validated - for invoicing</label>
+</ListView>

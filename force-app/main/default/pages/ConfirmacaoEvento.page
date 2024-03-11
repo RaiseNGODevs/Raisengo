@@ -1,0 +1,25 @@
+<apex:page controller="EventConfirmationController" applyBodyTag="false"
+    applyHtmlTag="false" sidebar="false" standardStylesheets="false"
+    showHeader="false" docType="html-5.0" cache="false" action="{!checkLink}">
+    <c:TemplateCSS />
+        <apex:define name="head">
+            <meta property="og:title" content="teste" />
+            <meta property="og:site_name" content="ACEGE" />
+            <!--<meta property="og:url" content="{!CompleteUrl}"/>-->
+        </apex:define>
+        <apex:define name="body">
+        <apex:messages />
+           
+            <apex:outputpanel rendered="{!not(resultado)}">
+                <fieldset class="clearfix">
+                    <p style="font-family:Arial,Helvetica,sans-serif; font-size: 50px; margin: 20px; padding: 20px; background-color: #990000; color: #fff;">{!message}</p>
+                </fieldset>
+            </apex:outputpanel>
+            <apex:outputpanel rendered="{!resultado}">
+                <fieldset class="clearfix">
+                    <p style="font-family: Arial,Helvetica,sans-serif; font-size: 50px; margin: 20px; padding: 20px; background-color: #006E25; color: #fff;">{!message}</p>
+                </fieldset>
+            </apex:outputpanel>
+        </apex:define>
+    
+</apex:page>

@@ -1,0 +1,53 @@
+<apex:page controller="EmailConsentController" action="{!updateValues}" showChat="false" showHeader="false" showQuickActionVfHeader="false" sidebar="false" standardStylesheets="false" lightningStylesheets="true" >
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <style>
+            html{
+                background-color: #003660;
+            }
+            .content-wrapper{
+                text-align: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width:80%;
+            }
+            .image-wrapper{
+                margin-bottom: 50px;
+            }
+            .image-wrapper img{
+                width: 180px;
+            }
+            .text-wrapper p{
+                color: white;
+                font-family: "Roboto", Arial, Tahoma, sans-serif;   
+            }
+            a{
+                color: #008cd2;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content-wrapper">
+            <div class="image-wrapper">
+                <img src="http://raisengo.pt/wp-content/uploads/2015/05/raisengo-logo-200.png" />
+            </div>
+            <div class="text-wrapper">
+                <p>
+                    Obrigado pela sua resposta de consentimento!
+                </p>
+                <p>
+                    Assim, vamos poder continuar a partilhar informação útil para a missão da sua Organização.
+                </p>
+                <p> 
+                    Em caso de necessidade de alteração de dados ou consentimentos, por favor contacte-nos para <a href="mailto:dpo@raisengo.pt">dpo@raisengo.pt</a> ou +351 256 001 98
+                </p>
+                <p>
+                    Até breve!
+                </p>  
+            </div>
+        </div>
+    </body>
+</apex:page>

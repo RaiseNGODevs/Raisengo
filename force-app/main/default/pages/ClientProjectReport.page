@@ -1,0 +1,354 @@
+<apex:page showHeader="false" sidebar="false" controller="ClientReportController"> 
+
+    <apex:includeScript value="{!$Resource.Plotly}"/>
+
+    <style>
+    
+ 
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat');
+    html {
+        font-size: 20px;
+        -webkit-align-content: center;
+        align-content: center;
+      width: auto;
+      margin: 0px auto;
+    }
+    body {
+      width: 100%;
+      margin: auto;
+      font-family: "Open Sans", sans-serif;
+      line-height: 1.25;
+    }
+    [id$='reportc'] {
+        width: 80%;
+        margin: 4% auto;
+    }
+    #report-head {
+        width: 100%;
+        height: 80px;
+        padding: 30px 0px;
+        background-color: #1e4e793a;
+        color: white;
+        text-align: center;
+    }
+    h1 {   
+        color: #01384a;
+        display: inline-block;
+        font-family: "Montserrat", sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 24px;
+    }
+    #tb{
+        width: 100%;
+        margin-top: 40px;
+    }
+    #total-row{
+        background: #01384a
+    }
+    .analyticsEmbeddedReportChart {
+        margin: auto;
+    }
+    .extra-info{
+        width: 100%;
+    }
+    
+    table {
+      border: 1px solid #fff;
+      border-collapse: collapse;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      table-layout: fixed;
+    }
+    table caption {
+      font-size: 1.5em;
+      margin: .5em 0 .75em;
+    }
+    table tr {
+      background: #1e4e793a;
+      border: 1px solid #fff;
+      padding: .35em;
+    }
+    table th,
+    table td {
+      padding: .625em;
+      border: 1px solid #fff;
+      text-align: center;
+    }
+    table th {
+      font-size: .85em;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    @media screen and (max-width: 600px) {
+      table {
+        border: 0;
+      }
+      table caption {
+        font-size: 1.3em;
+      }
+      table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+      }
+      table tr {
+        border-bottom: 3px solid #fff;
+        display: block;
+        margin-bottom: .625em;
+      }
+      table td {
+        border-bottom: 1px solid #fff;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+      }
+      table td:before {
+        /*
+        * aria-label has no advantage, it won't be read inside a table
+        content: attr(aria-label);
+        */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      table td:last-child {
+        border-bottom: 0;
+      }
+    }
+    #info-table{
+        min-width: 400px;
+        width: 40%;
+        margin: 2% auto;
+    }
+    #task-table{
+        width: 100%;
+        margin: 2% auto;
+    }
+    #info-table tbody{
+        font-size: 22px;
+        font-weight: 800;
+    }
+    #tb td:nth-child(2), #tb td:nth-child(3) { text-align: left; }
+    #tb td:nth-child(1), th:nth-child(1) { 
+        width: 10%; 
+    }
+    #tb td:nth-child(2), th:nth-child(2) { 
+        width: 32%; 
+    }
+    #tb td:nth-child(3), th:nth-child(3) { 
+        width: 50%; 
+    }
+    #tb td:nth-child(4), th:nth-child(4) {
+        width: 8%; 
+    }
+    #tb #total-cell{
+       text-align: right;
+    }
+    table #total-row td {
+      color: #fff;
+      padding: .625em;
+      border: 0px;
+      text-align: center;
+    }
+    </style>
+    
+    <div id="report-head">
+        <img class="scale-with-grid logohome" src="https://raisengo.com/wp-content/uploads/2020/11/logo_site.png" alt="" width="240px" style="vertical-align:middle; margin-right: 40px; margin-top: -10px" />
+        <h1 id="report-title"></h1>
+    </div>
+    
+    <div id="report-body">
+        <div id="extra-info">
+            <table id="info-table">
+                <thead>
+                    <tr>
+                        <apex:outputPanel rendered="{! $CurrentPage.parameters.lang == 'en' || $CurrentPage.parameters.cId == '80058000000MaXBAA0'}" layout="none">
+                            <td>Contract Start</td>
+                            <td>Contracted Hours</td>
+                            <td>Hours Spent</td>
+                            <td>Hours Left</td>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{! $CurrentPage.parameters.lang != 'en' && $CurrentPage.parameters.cId != '80058000000MaXBAA0'}" layout="none">
+                            <td>Início Contrato</td>
+                            <td>Horas Contratadas</td>
+                            <td>Horas Utilizadas</td>
+                            <td>Horas Disponíveis</td>
+                        </apex:outputPanel>
+                    </tr>
+                    <tr>
+                        <td id="contract-start-date"></td>
+                        <td id="contracted-hours"></td>
+                        <td id="used-hours"></td>
+                        <td id="available-hours"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <apex:outputPanel id="reportc" layout="block">
+            <div id="graph">
+            </div>
+            <div id="tb">
+                <table id="task-table">
+                    <thead>
+                        <tr>
+                            <apex:outputPanel rendered="{! $CurrentPage.parameters.lang == 'en' || $CurrentPage.parameters.cId == '80058000000MaXBAA0'}" layout="none">
+                            <th>Date</th>
+                            <th>Task</th>
+                            <th>Notes</th>
+                            <th>Hours</th>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{! $CurrentPage.parameters.lang != 'en' && $CurrentPage.parameters.cId != '80058000000MaXBAA0'}" layout="none">
+                            <th>Data</th>
+                            <th>Tarefa</th>
+                            <th>Notas</th>
+                            <th>Horas</th>
+                            </apex:outputPanel>
+                        </tr>
+                   </thead>
+                </table>
+            </div>
+        </apex:outputPanel> 
+    </div>
+    
+    <script>     
+        
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        
+        var setGraphValues = function( xValue, yValue) {
+            var data = [
+              {
+                x: xValue,
+                y: yValue,
+                type: 'bar',
+                text: yValue,
+                textposition: 'auto',
+                hoverinfo: 'none',
+                marker: {
+                    color: '#00EE90',
+                    opacity: 0.6
+                  }
+              }
+            ];
+            
+            Plotly.newPlot('graph', data, {xaxis:{title: 'Month/ Year'},yaxis:{title: 'Hours'}});
+        }
+    
+        var getDateMonthYear = function (val) {
+            var d = new Date(val);
+            var pad = '00';
+            var day = pad.substring(0, pad.length - d.getDate().toString().length) + d.getDate().toString();
+            var month = pad.substring(0, pad.length - (d.getMonth()+1).toString().length) + (d.getMonth()+1).toString();
+            return day + '/' + month + '/' + d.getFullYear();
+        }
+        function htmlDecode(input){
+          var e = document.createElement('div');
+          e.innerHTML = input;
+          return e.childNodes[0].nodeValue;
+        }
+        
+        var createGraph = function(tasktimes){
+            var xValues = [];
+            var lookup = {};
+            
+            tasktimes.forEach( function(t) {
+              var date = getDateMonthYear(t.executionDate).split(/\/(.+)/)[1];
+            
+              if (!(date in lookup)) {
+                lookup[date] = t.duration;
+                xValues.push(date);
+              }
+              else{
+                  lookup[date] += t.duration;
+              }
+            });
+            console.log(lookup);
+            setGraphValues( Object.keys(lookup).reverse(), Object.values(lookup).reverse());
+            
+        }
+        
+        var setTableData = (tasks) => {
+            var tableRef = document.getElementById('task-table');
+            var hoursUsed = 0;
+            tasks.forEach( (task) => {
+                var cellIndex = 0;
+                
+                var newRow   = tableRef.insertRow(tableRef.rows.length);
+                var newCell  = newRow.insertCell(cellIndex++);
+                var newDate  = document.createTextNode(getDateMonthYear(task.executionDate));
+                newCell.appendChild(newDate);
+                
+                var newTasks;
+                                                        
+                newCell  = newRow.insertCell(cellIndex++);
+                newTasks  = document.createTextNode(task.taskName);
+                newCell.appendChild(newTasks);
+                
+                newCell  = newRow.insertCell(cellIndex++);
+                var newNote  = document.createTextNode(htmlDecode(task.notes));
+                newCell.appendChild(newNote);
+                
+                newCell  = newRow.insertCell(cellIndex++);
+                var newHours  = document.createTextNode(task.duration);
+                hoursUsed += task.duration;
+                newCell.appendChild(newHours);
+            } );
+            var totalRow   = tableRef.insertRow(tableRef.rows.length);
+            totalRow.id = 'total-row';
+            totalRow.insertCell(0);
+            totalRow.insertCell(1);
+            labelCell  = totalRow.insertCell(2);
+            totalCell  = totalRow.insertCell(3);
+            labelCell.id = 'total-cell';
+            var labelText  = document.createTextNode('Total');
+            var totalText  = document.createTextNode(hoursUsed);
+            labelCell.appendChild(labelText);
+            totalCell.appendChild(totalText);
+            
+            return hoursUsed;
+        }
+        
+        var setReportData = (reportData) => {
+            var tableRef = document.getElementById('task-table');
+            document.getElementById('contract-start-date').innerHTML = reportData.startDate && getDateMonthYear(reportData.startDate) || '-';
+            document.getElementById('report-title').innerHTML = reportData.title;
+            document.getElementById('contracted-hours').innerHTML = reportData.contractedHours || '-';
+            var hoursUsed;
+            if( reportData.tasks ){
+                hoursUsed = setTableData(reportData.tasks);
+                createGraph(reportData.tasks);
+            }
+            document.getElementById('used-hours').innerHTML = hoursUsed || '-';
+            var hourDifference = reportData.contractedHours - hoursUsed;
+            document.getElementById('available-hours').innerHTML = reportData.contractedHours ? hourDifference.toFixed(2) : '-';
+        }
+        
+        const reportData = JSON.parse('{!report}');
+        //const reportData = JSON.parse(JSON.stringify({!report}));
+        console.log(reportData);
+        setTimeout(() => setReportData(reportData), 0);
+        
+        
+    </script>
+
+</apex:page>

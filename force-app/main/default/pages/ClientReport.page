@@ -1,0 +1,451 @@
+<apex:page showHeader="false" sidebar="false"> 
+
+    <apex:includeScript value="{!$Resource.Plotly}"/>
+
+    <style>
+    
+    @import url('https://fonts.googleapis.com/css?family=Ubuntu');
+    html {
+        font-size: 20px;
+        -webkit-align-content: center;
+        align-content: center;
+      width: auto;
+      margin: 0px auto;
+    }
+    body {
+      width: 100%;
+      margin: auto;
+      font-family: "Open Sans", sans-serif;
+      line-height: 1.25;
+    }
+    [id$='reportc'] {
+        width: 80%;
+        margin: 4% auto;
+    }
+    #report-head {
+        width: 100%;
+        height: 130px;
+        padding: 30px 0px;
+        background-color: #008cd2;
+        color: white;
+        text-align: center;
+    }
+    h1 {   
+        color: #fff;
+        display: inline-block;
+        font-family: "Ubuntu", Arial, Tahoma, sans-serif;
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 24px;
+    }
+    #tb{
+        width: 100%;
+        margin-top: 40px;
+    }
+    #total-row{
+        background: #008cd2
+    }
+    .analyticsEmbeddedReportChart {
+        margin: auto;
+    }
+    .extra-info{
+        width: 100%;
+    }
+    
+    table {
+      border: 1px solid #ccc;
+      border-collapse: collapse;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      table-layout: fixed;
+    }
+    table caption {
+      font-size: 1.5em;
+      margin: .5em 0 .75em;
+    }
+    table tr {
+      background: #f8f8f8;
+      border: 1px solid #ddd;
+      padding: .35em;
+    }
+    table th,
+    table td {
+      padding: .625em;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    table th {
+      font-size: .85em;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    @media screen and (max-width: 600px) {
+      table {
+        border: 0;
+      }
+      table caption {
+        font-size: 1.3em;
+      }
+      table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+      }
+      table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+      }
+      table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+      }
+      table td:before {
+        /*
+        * aria-label has no advantage, it won't be read inside a table
+        content: attr(aria-label);
+        */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      table td:last-child {
+        border-bottom: 0;
+      }
+    }
+    #info-table{
+        width: 40%;
+        margin: 2% auto;
+    }
+    #task-table{
+        width: 100%;
+        margin: 2% auto;
+    }
+    #info-table tbody{
+        font-size: 22px;
+        font-weight: 800;
+    }
+    #tb td:nth-child(2), #tb td:nth-child(3) { text-align: left; }
+    #tb td:nth-child(1), th:nth-child(1) { 
+        width: 10%; 
+    }
+    #tb td:nth-child(2), th:nth-child(2) { 
+        width: 32%; 
+    }
+    #tb td:nth-child(3), th:nth-child(3) { 
+        width: 50%; 
+    }
+    #tb td:nth-child(4), th:nth-child(4) {
+        width: 8%; 
+    }
+    #tb #total-cell{
+       text-align: right;
+    }
+    table #total-row td {
+      color: #fff;
+      padding: .625em;
+      border: 0px;
+      text-align: center;
+    }
+    </style>
+    <apex:remoteObjects >
+        <apex:remoteObjectModel name="TASKRAY__trTaskTime__c" jsShorthand="TaskTime" >
+            <apex:remoteObjectField name="TASKRAY__Date__c" jsShorthand="Date"/>
+            <apex:remoteObjectField name="TASKRAY__Hours__c" jsShorthand="Hours"/>
+            <apex:remoteObjectField name="TASKRAY__Billable__c" jsShorthand="Billable"/>
+            <apex:remoteObjectField name="TASKRAY__Task__c" jsShorthand="Task"/>
+            <apex:remoteObjectField name="TASKRAY__Notes__c" jsShorthand="Notes"/>
+            <apex:remoteObjectField name="TASKRAY__Project__c" jsShorthand="Project"/>
+        </apex:remoteObjectModel>
+        
+        <apex:remoteObjectModel name="TASKRAY__Project_Task__c" jsShorthand="Task" >
+            <apex:remoteObjectField name="Name" jsShorthand="TaskName"/>
+            <apex:remoteObjectField name="TASKRAY__Project__c" jsShorthand="Project"/> 
+        </apex:remoteObjectModel>
+        
+        <apex:remoteObjectModel name="TASKRAY__Project__c" jsShorthand="Project" fields="Id,Name" >
+            <apex:remoteObjectField name="Contracted_Hours_Total__c" jsShorthand="HorasContratadas"/>
+            <apex:remoteObjectField name="Contract__c" jsShorthand="Contract"/>
+        </apex:remoteObjectModel>
+        
+        <apex:remoteObjectModel name="Contract" >
+            <apex:remoteObjectField name="ContractNumber"/>
+            <apex:remoteObjectField name="StartDate"/>
+        </apex:remoteObjectModel>
+        
+        <apex:remoteObjectModel name="Report" >
+            <apex:remoteObjectField name="Name"/>
+        </apex:remoteObjectModel>
+    </apex:remoteObjects>
+    
+    <div id="report-head">
+        <img class="scale-with-grid logohome" src="http://raisengo.pt/wp-content/uploads/2015/05/raisengo-logo-200.png" alt="" width="180px" style="vertical-align:middle; margin-right: 40px" />
+        <h1 id="report-title"></h1>
+    </div>
+    
+    <div id="report-body">
+        <div id="extra-info">
+            <table id="info-table">
+                <thead>
+                    <tr>
+                        <apex:outputPanel rendered="{! $CurrentPage.parameters.lang == 'en' || $CurrentPage.parameters.cId == '80058000000MaXBAA0'}" layout="none">
+                            <td>Contract Start</td>
+                            <td>Contracted Hours</td>
+                            <td>Hours Spent</td>
+                            <td>Hours Left</td>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{! $CurrentPage.parameters.lang != 'en' && $CurrentPage.parameters.cId != '80058000000MaXBAA0'}" layout="none">
+                            <td>Início Contrato</td>
+                            <td>Horas Contratadas</td>
+                            <td>Horas Utilizadas</td>
+                            <td>Horas Disponíveis</td>
+                        </apex:outputPanel>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <apex:outputPanel id="reportc" layout="block">
+            <!-- <analytics:reportChart reportId="{!$CurrentPage.parameters.rId}" showRefreshButton="false" size="large"> -->
+            <div id="graph">
+            </div>
+            <div id="tb">
+                <table id="task-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Tarefa</th>
+                            <th>Notas</th>
+                            <th>Horas</th>
+                        </tr>
+                   </thead>
+                </table>
+            </div>
+            <!-- </analytics:reportChart> -->
+        </apex:outputPanel> 
+    </div>
+    
+    <script>     
+        
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        
+        var setGraph = function( xValue, yValue) {
+            var data = [
+              {
+                x: xValue,
+                y: yValue,
+                type: 'bar',
+                text: yValue,
+                textposition: 'auto',
+                hoverinfo: 'none',
+                marker: {
+                    color: '#008cd2',
+                    opacity: 0.6
+                  }
+              }
+            ];
+            
+            Plotly.newPlot('graph', data, {xaxis:{title: 'Mês/Ano'},yaxis:{title: 'Horas'}});
+        }
+    
+        var getDateMonthYear = function (val) {
+            var d = new Date(val);
+            var pad = '00';
+            var day = pad.substring(0, pad.length - d.getDate().toString().length) + d.getDate().toString();
+            var month = pad.substring(0, pad.length - d.getMonth().toString().length) + (d.getMonth()+1).toString();
+            return day + '/' + month + '/' + d.getFullYear();
+        }
+        function htmlDecode(input){
+          var e = document.createElement('div');
+          e.innerHTML = input;
+          return e.childNodes[0].nodeValue;
+        }
+        
+        var getGraphValues = function(tasktimes){
+            var xValues = [];
+            var lookup = {};
+            
+            tasktimes.forEach( function(t) {
+              var date = getDateMonthYear(t.get('Date')).split(/\/(.+)/)[1];
+            
+              if (!(date in lookup)) {
+                lookup[date] = t.get('Hours');
+                xValues.push(date);
+              }
+              else{
+                  lookup[date] += t.get('Hours');
+              }
+            });
+            console.log(lookup);
+            setGraph( Object.keys(lookup).reverse(), Object.values(lookup).reverse());
+            
+        }
+        
+        var fetchTimes = function(){
+            // Create a new Remote Object
+            var contr = new SObjectModel.Contract();
+            var proj = new SObjectModel.Project();
+            var task = new SObjectModel.Task();
+            var taskTime = new SObjectModel.TaskTime();
+            var report = new SObjectModel.Report();
+            var clauses = { where: { Id: { eq: getParameterByName('cId') }}, limit: 1};
+            var horasContradas;
+            var totalGastas = 0;
+            
+            report.retrieve({where: {Id: {eq: getParameterByName('rId')}}, limit: 1}, function(err, records, event){
+                if(err) {
+                    alert(err.message);
+                }
+                else{
+                    if(records.length == 1){
+                        document.getElementById('report-title').innerHTML = records[0].get('Name');
+                    }
+                }
+            });
+            
+            contr.retrieve( clauses, function(err, records, event){
+                if(err) {
+                    alert(err.message);
+                }
+                else {
+                    if(records.length == 1){
+                        proj.retrieve({where: { "Contract__c": {eq: records[0].get('Id')}}}, function(err1, projects, event1){
+                            if(err) {
+                                alert(err.message);
+                            }
+                            else{
+                                if( projects != null && projects.length > 0 ){
+                                    horasContradas = projects[0].get('HorasContratadas');
+                                    
+                                    task.retrieve({where: {Project: {eq: projects[0].get('Id')}}, limit: 1000}, function(err2, tasks, event2){
+                                        if(err2) {
+                                            alert(err.message);
+                                        }
+                                        else{
+                                            var startDate = getParameterByName('startDate');
+                                            var endDate = getParameterByName('endDate');
+                                            console.log(( startDate && (new Date(startDate) ) || new Date("1900-01-01")));
+                                            console.log(( endDate && (new Date(endDate)) || new Date()));
+                                            var timeClause = {
+                                                where: { 
+                                                    Project: {
+                                                        eq: projects[0].get('Id')
+                                                    },
+                                                    Billable:{
+                                                        eq: false
+                                                    },
+                                                    Date: { lte: ( endDate && (new Date(endDate)) || new Date()) }
+                                                },
+                                                orderby: [{Date: 'DESC'}],
+                                                limit: 1000
+                                            };
+                                            console.log(timeClause);
+                                            taskTime.retrieve(timeClause, function(err1, tasktimes, event1){
+                                                if(err) {
+                                                    alert(err.message);
+                                                }
+                                                else{
+                                                    var tableRef = document.getElementById('task-table');
+                                                    tasktimes.forEach(function(t){
+                                                        var cellIndex = 0;
+                                                        var thisTask = tasks.filter( function(val) {
+                                                            return val.get('Id') === t.get('Task');
+                                                        });
+                                                        
+                                                        var newRow   = tableRef.insertRow(tableRef.rows.length);
+                                                        var newCell  = newRow.insertCell(cellIndex++);
+                                                        var newDate  = document.createTextNode(getDateMonthYear(t.get('Date')));
+                                                        newCell.appendChild(newDate);
+                                                        
+                                                        
+                                                        var newTasks;
+                                                        
+                                                        newCell  = newRow.insertCell(cellIndex++);
+                                                        if( thisTask.length > 0){
+                                                            newTasks  = document.createTextNode(thisTask[0].get('Name'));
+                                                        }
+                                                        else{
+                                                            newTasks  = document.createTextNode('');
+                                                        }
+                                                        newCell.appendChild(newTasks);
+                                                        
+                                                        newCell  = newRow.insertCell(cellIndex++);
+                                                        var newNote  = document.createTextNode((t.get('Notes')!=null) ? htmlDecode(t.get('Notes')) : '');
+                                                        newCell.appendChild(newNote);
+                                                        
+                                                        newCell  = newRow.insertCell(cellIndex++);
+                                                        var newHours  = document.createTextNode(t.get('Hours'));
+                                                        totalGastas += t.get('Hours');
+                                                        newCell.appendChild(newHours);
+                                                    });
+                                                    
+                                                    var totalRow   = tableRef.insertRow(tableRef.rows.length);
+                                                    totalRow.id = 'total-row';
+                                                    totalRow.insertCell(0);
+                                                    totalRow.insertCell(1);
+                                                    labelCell  = totalRow.insertCell(2);
+                                                    totalCell  = totalRow.insertCell(3);
+                                                    labelCell.id = 'total-cell';
+                                                    var labelText  = document.createTextNode('Total');
+                                                    var totalText  = document.createTextNode(totalGastas);
+                                                    labelCell.appendChild(labelText);
+                                                    totalCell.appendChild(totalText);
+                                                    
+                                                    var infoTableRef = document.getElementById('info-table');
+                                                    var newRow   = infoTableRef.insertRow(infoTableRef.rows.length);
+                                                    
+                                                    var startCell  = newRow.insertCell(0);
+                                                    var startNode  = document.createTextNode(getDateMonthYear(records[0].get('StartDate')));
+                                                    startCell.appendChild(startNode);
+                                                    
+                                                    var newCell  = newRow.insertCell(1);
+                                                    var newNode  = document.createTextNode(horasContradas);
+                                                    newCell.appendChild(newNode);
+                                                    
+                                                    var newCell  = newRow.insertCell(2);
+                                                    var newNode  = document.createTextNode((totalGastas).toFixed(2));
+                                                    newCell.appendChild(newNode);
+                                                    
+                                                    newCell  = newRow.insertCell(3);
+                                                    newNode  = document.createTextNode((horasContradas - totalGastas).toFixed(2));
+                                                    newCell.appendChild(newNode);
+                                                    
+                                                    var graphValues = getGraphValues(tasktimes);
+                                                    
+                                                    //setGraph(['Product A', 'Product B', 'Product C'],[20, 14, 23]);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        };
+        setTimeout(fetchTimes, 0);
+    </script>
+
+</apex:page>

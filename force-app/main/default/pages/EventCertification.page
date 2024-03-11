@@ -1,0 +1,46 @@
+<apex:page controller="EventCertification"
+    standardStylesheets="false"
+    showHeader="false" docType="html-5.0" cache="false"
+    renderAs="pdf" applyBodyTag="false" 
+    applyHtmlTag="false"> 
+<html>
+<head>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto');
+    
+        @page {
+            size: A4;
+            size: landscape;
+            margin: 15mm;
+            padding:0;
+        }
+        html, body {
+            width: 100%;
+            height: 170mm;
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            font-size: 16px;
+            font-family: "Roboto", Arial, Tahoma, sans-serif;
+            line-height: 160%;
+        }
+        
+    </style>
+</head>
+<body>
+    <apex:messages />
+    
+    <apex:outputPanel rendered="{!listSubscription != null}">
+        <apex:repeat value="{!listSubscription}" var="sub">
+            <c:CertificationTemplate subscription="{!sub}" />
+        </apex:repeat>
+    </apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!subscription != null}">
+        <c:CertificationTemplate subscription="{!subscription}" />
+    </apex:outputPanel>
+   
+</body>
+</html>
+</apex:page>

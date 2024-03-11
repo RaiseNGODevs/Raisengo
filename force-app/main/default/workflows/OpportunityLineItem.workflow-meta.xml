@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>OP_Discount_percentage</fullName>
+        <field>Discount</field>
+        <formula>Discount_amount__c/( UnitPrice * Quantity)</formula>
+        <name>OP. Discount (%)</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>OP%2E Discount %28%25%29</fullName>
+        <actions>
+            <name>OP_Discount_percentage</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>OpportunityLineItem.Discount_amount__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>If the Discount (%) is blank and Discount (€) is filled, fill the Discount (%).</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

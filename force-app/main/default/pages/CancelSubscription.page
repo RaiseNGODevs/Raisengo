@@ -1,0 +1,33 @@
+<apex:page controller="CancelSubscriptionController" showHeader="false" standardStylesheets="false" action="{!updateSubscription}" applyBodyTag="false">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i');
+        
+        body{
+            height: 100%;
+            background-color: #038CD2;
+            font-family: 'Ubuntu', sans-serif;
+        } 
+        .content-wrapper{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            text-align:center;
+            width: 100%;
+        }
+        .text{
+            color: white;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <img src="http://raisengo.pt/wp-content/uploads/2015/05/raisengo-logo-200.png" />  
+        <h1 class="text">A sua inscrição foi cancelada</h1>
+        <p style="color:white;">Obrigado pelo seu interesse, contamos consigo no próximo evento</p>
+    </div>
+</body>
+</apex:page>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Submitted_Application_to_Review</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>Job_Offer__c</columns>
+    <columns>NAME</columns>
+    <columns>Application_Stage__c</columns>
+    <columns>Contact__c</columns>
+    <columns>CV__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Application_Stage__c</field>
+        <operation>equals</operation>
+        <value>Submitted</value>
+    </filters>
+    <label>Submitted Applications to Review</label>
+</ListView>

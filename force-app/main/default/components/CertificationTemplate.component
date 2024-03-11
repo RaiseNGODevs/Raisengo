@@ -1,0 +1,33 @@
+<apex:component >
+    <apex:attribute name="subscription" description="The receipt object class" required="true" type="Subscription__c" />
+    
+    <div id="pagebreak" style="heigth: 640px; page-break-before: always;"></div>
+    
+        <div style="width: 100%; height: 100%;">
+            <div style="height:250px; text-align:center; margin: 0 -20%; width:140%; padding: 50px 0 0 0; background-color:#f1991c;">
+                <img src="{!$Resource.certificationImage_ShareNGO}" height="200" width="auto" />
+                <!--<apex:outputText value="{!subscription.Event_Form__r.Event_Certification_Header__c}" styleClass="image" escape="false"/>-->
+            </div>
+            
+            <div style="height:150px; text-align: justify; text-justify: inter-word; display: inline-block; margin-top:60px;">
+                Certifica-se que <apex:outputText style="background-color: #e4e4e4; padding: 6px" value="{!subscription.Contact__r.Name}"/> participou no evento {!subscription.Event_Form__r.Name}, realizado 
+                no dia <apex:outputText value="{0,date, dd'-'MM'-'yyyy}"><apex:param value="{!subscription.Event_Form__r.Start__c}"/></apex:outputText>,
+                das <apex:outputText value=" {0,time,HH:mm }"><apex:param value="{!subscription.Event_Form__r.Start__c}"/></apex:outputText> às <apex:outputText value=" {0,time,HH:mm}"><apex:param value="{!subscription.Event_Form__r.End__c}"/></apex:outputText>,
+                em Atmosfera M, Lisboa.
+                {!subscription.Event_Form__r.Event_Certification_Description__c}
+            </div>   
+            
+            <div style="text-align:center; position: relative;">
+                <div>Lisboa, 21 Março 2018</div>
+                <div><img src="{!$Resource.Signature}" width="160"/></div>
+            </div>
+        </div>
+        
+        <div style="position:fixed; bottom:0; display:inline-block; max-height:100px; text-align:center; font-size:12px; width:100%; color:#00447c;">
+            <p style="margin:0; line-height:20px;">
+                Raise N'GO - Tecnologias de Informação e Marketing para a Economia Social e Ensino
+                <br/>
+                www.raisengo.pt  |  +351 256 001 985  |  info@raisengo.pt
+            </p>
+        </div>       
+</apex:component>

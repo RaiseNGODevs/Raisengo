@@ -1,0 +1,145 @@
+<apex:page controller="EventController" 
+           sidebar="false" 
+           showHeader="false" 
+           standardStylesheets="false" 
+           applyBodyTag="false" 
+           applyHtmlTag="false">
+    <head>
+        <!-- //Facebook Meta-tags -->
+        <meta property="og:type" content="" />
+        <meta property="og:image" content=""/>
+        <meta property="og:description" content=""/>
+        <meta property="og:title" content=""/>
+        <meta property="og:url" content=""/>
+      
+        <!-- //Página Meta-tags -->
+        <title><apex:outputText escape="false" value="{!form.Form_Title__c}"/></title>
+        <meta charset="utf-8" />        
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link href="//cdn.muicss.com/mui-latest/css/mui.min.css" rel="stylesheet" type="text/css" />
+        <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script>
+        
+        <c:FormCSS baseColor="#008cd2"/>
+    </head>
+    
+    <body>
+        <div class="App">
+            <apex:outputPanel rendered="{! step == 1}">
+                <div class="App-header">
+                    <h1>{!form.Form_Title__c}</h1>
+                </div>
+                <div class="App-body">
+                    <apex:form styleClass="mui-form">                        
+                        <div class="input-block">
+                            <div class="mui-textfield mui-textfield--float-label">
+                                <apex:inputText value="{!Name}"/>
+                                <label>Nome<span> *</span></label>
+                            </div>
+                            <apex:outputPanel layout="none" rendered="{!alertName != ''}">
+                                <apex:outputLabel styleClass="errorLabel">{! alertName }</apex:outputLabel>
+                            </apex:outputPanel>
+                        </div>
+                        
+                        <div class="input-block">
+                            <div class="mui-textfield mui-textfield--float-label">
+                                <apex:inputText value="{!Cont.Email}"/>
+                                <label>Email<span> *</span></label>
+                            </div>
+                            <apex:outputPanel layout="none" rendered="{!alertEmail != ''}">
+                                <apex:outputLabel styleClass="errorLabel">{! alertEmail }</apex:outputLabel>
+                            </apex:outputPanel>
+                        </div>
+                        
+                        <div class="input-block">
+                            <div class="mui-textfield mui-textfield--float-label">
+                                <apex:inputText value="{!Cont.Organization_Name__c}"/>
+                                <label>Organização<span> *</span></label>
+                            </div>
+                            <apex:outputPanel layout="none" rendered="{!alertOrganization != ''}">
+                                <apex:outputLabel styleClass="errorLabel">{! alertOrganization }</apex:outputLabel>
+                            </apex:outputPanel>
+                        </div>
+                        
+                        <div class="input-block">
+                            <div class="mui-textfield mui-textfield--float-label">
+                                <apex:inputText value="{!Cont.Title}"/>
+                                <label>Cargo</label>
+                            </div>
+                        </div>
+                        
+                        <div class="input-block">                           
+                            <div class="mui-textfield mui-textfield--float-label">
+                                <apex:inputTextarea value="{!Observations}"/>
+                                <label>Alguma questão adicional?</label>
+                            </div>
+                        </div>
+                        
+                        <div class="checkbox">
+                            <label class="container">
+                                <apex:inputCheckbox value="{!Cont.Newsletter__c }" />
+                                Gostaria de receber a nossa e-newsletter?
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="privacy-policy">
+                            <apex:outputText escape="false" value="{!form.Data_Protection__c}" />
+                        </div>
+                        
+                        <apex:outputPanel layout="none" rendered="{!alertDuplicateEmail != ''}">
+                            <div class="erro-destacado">
+                                <apex:outputLabel >{! alertDuplicateEmail}</apex:outputLabel>
+                            </div> 
+                        </apex:outputPanel>
+                        <p class="required-field-info">* Campos obrigatórios</p>
+                        
+                        <apex:commandButton action="{!Submit}" styleClass="mui-btn mui-btn--raised mui-btn--primary button" value="OBTER GUIA"/>
+                    </apex:form>
+                </div>
+            </apex:outputPanel>
+            
+            <apex:outputpanel layout="none" rendered="{! step == 2}">          
+                    <div class="loader">
+                        <div class="spinner">
+                            <div class="spinner-container container1">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                              </div>
+                              <div class="spinner-container container2">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                              </div>
+                              <div class="spinner-container container3">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                              </div>
+                        </div>   
+                    </div>
+                    <script>
+                        console.log("entrou");
+                        if("{!redirectPage}" != null)
+                            window.top.location='{!redirectPage}';
+                    </script> 
+           </apex:outputpanel>
+       
+            <apex:outputPanel rendered="{!step == 3}">
+                <div class="App-header">
+                    <h1>
+                        {!form.Confirmation_Title__c}
+                    </h1>
+                </div>
+                <div class="App-body">
+                    <apex:outputText escape="false" value="{!form.Confirmation_Message__c}" styleClass="confirmation-message"/>
+                </div>
+            </apex:outputPanel>
+        </div>
+    </body>
+</apex:page>

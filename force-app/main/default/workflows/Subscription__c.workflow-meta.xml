@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Envio_de_Bilhete</fullName>
+        <description>Envio de Bilhete</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>RaiseNGO/Inscri_o_no_evento</template>
+    </alerts>
+    <alerts>
+        <fullName>S_Email_Acknowledge</fullName>
+        <description>S. Email Acknowledge</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>RaiseNGO/Inscricao_Obrigado_Presenca</template>
+    </alerts>
+    <alerts>
+        <fullName>S_Email_Follow_up</fullName>
+        <description>S. Email Follow-up</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>RaiseNGO/Inscricao_Follow_up</template>
+    </alerts>
+    <alerts>
+        <fullName>S_Email_Follow_up_rgpd</fullName>
+        <description>S. Email Follow-up RGPD</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>joana.martins@raisengo.pt</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>RaiseNGO/RGPD_Follow_up</template>
+    </alerts>
+    <alerts>
+        <fullName>S_Email_Reminder</fullName>
+        <description>S. Email Reminder</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>RaiseNGO/Inscri_o_no_evento_reminder</template>
+    </alerts>
+    <alerts>
+        <fullName>S_Email_Reminder_2</fullName>
+        <description>S. Email Reminder 2</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>RaiseNGO/Inscricao_no_evento_reminder_2</template>
+    </alerts>
+    <alerts>
+        <fullName>S_Guia_RGPD</fullName>
+        <description>S. Guia RGPD</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>RaiseNGO/RGPD_Download</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>E_Confirmation_Email_Date</fullName>
+        <field>Confirmation_Email_Date__c</field>
+        <formula>NOW()</formula>
+        <name>E. Confirmation Email Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>S_Email_Acknowledge_TS</fullName>
+        <field>Acknowledge_Date__c</field>
+        <formula>NOW()</formula>
+        <name>S. Email Acknowledge TS</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>S_Email_Follow_up_TS</fullName>
+        <field>Follow_up_Email_Date__c</field>
+        <formula>NOW()</formula>
+        <name>S. Email Follow-up TS</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>S_Email_Reminder_2_TS</fullName>
+        <field>Email_Reminder_2__c</field>
+        <formula>NOW()</formula>
+        <name>S. Email Reminder 2 TS</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>S_Email_Reminder_TS</fullName>
+        <field>Email_Reminder__c</field>
+        <formula>NOW()</formula>
+        <name>S. Email Reminder TS</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+</Workflow>

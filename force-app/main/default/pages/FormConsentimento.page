@@ -1,0 +1,484 @@
+<apex:page applyBodyTag="false" 
+           applyHtmlTag="false" 
+           standardStylesheets="false" 
+           showChat="false" 
+           showHeader="false" 
+           showQuickActionVfHeader="false" 
+           sidebar="false"
+           controller="rgpd.FormConsentimentoController"
+           >
+    <head>
+        <meta charset="utf-8" />        
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" />
+        
+        <style>
+            :root{
+                --color: {!campaign.rgpd__Cor_de_base__c}
+            }
+            .App{
+                max-width: 430px;
+                margin: auto;
+            }
+            .App-header{
+                //background-color: var(--color);
+                //margin-bottom: 50px;
+                color: var(--color);
+                padding: 20px 0;
+                text-align: center;                
+                font-size: 22px;
+            }
+            .App-header img{
+                max-width: 70%;
+            }
+            .App-header p{
+                color: black;
+                font-weight: 600;
+                margin: 50px 0 0;
+            }
+            .App-body{
+                padding: 0 20px;
+            }
+            .text-consentimento p,
+            .text-deleteData{
+                margin: 40px 0 10px;
+            }
+            .text-consentimento span{
+                font-size: 14px !important;
+                color: rgba(0,0,0,0.87) !important;
+            }
+            .btn{
+                width: 100%;
+                height: 50px;
+                margin: 25px 0;
+                padding: 0;
+            }
+            .btn input{
+                color: white;
+                width: 100%;
+                cursor: pointer;
+                line-height: 50px;
+            }
+            .input-field>label{
+                z-index: -1;
+            }
+            table{
+                border-collapse: separate;
+            }
+            td, th{
+                display: inline;
+                padding: 10px;
+            }
+            #deleteAccountQuestion{
+                margin: 40px 0;
+            }
+            
+            .errorLabel{
+                color: rgb(244,67,54) !important;
+                position: relative;
+                bottom: 18px;
+                font-size: 12px;
+            }
+            blockquote{
+                border-color: var(--color);
+            }
+            .modal{
+                max-width: 430px;
+            }
+            label span{
+                color: black;
+            }
+            #consentimentos{
+                margin: 40px 0;
+            }
+            #consentimentos fieldset{
+                padding: 0;
+            }
+            .btn{
+                background-color: var(--color);
+                opacity: 0.9;
+            }
+            .btn:hover {
+                background-color: var(--color) !important;
+                opacity: 1;
+            }
+            .input-field input[type=text]:focus {
+                border-bottom: 1px solid var(--color) !important;
+                box-shadow: 0 1px 0 0 var(--color) !important;
+            }
+            .input-field input[type=text]:focus + label {
+                color: var(--color) !important;
+            }
+            [type="checkbox"]:checked+span:not(.lever):before {
+                border-right: 2px solid var(--color) !important;
+                border-bottom: 2px solid var(--color) !important;
+            }
+            .dropdown-content li>a, .dropdown-content li>span {
+                color: var(--color) !important;
+            }
+            .input-field.invalid input{
+                border-bottom: 1px solid #F44336;
+                -webkit-box-shadow: 0 1px 0 0 #F44336;
+                box-shadow: 0 1px 0 0 #F44336;
+            }
+            [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
+                background-color: var(--color) !important;
+            }
+            [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after {
+                border: 2px solid var(--color) !important;
+            }
+            .questions{
+                padding-left: 10px;
+            }
+            .questions p{
+                margin-bottom: 0;
+            }
+            .questions .errorLabel,
+            #deleteAccountQuestion .errorLabel{
+                position: unset;
+            }
+        </style>
+    </head>
+    <body>
+        <apex:pageMessages />
+        <div class="App">
+            <div class="App-header">
+                <apex:outputText value="{!campaign.rgpd__Titulo__c}" escape="false" /> 
+            </div>
+            <div class="App-body">
+                <apex:outputPanel rendered="{!submitted == false}">
+                    <apex:form >
+                        <apex:outputPanel id="name">
+                            <div class="input-field">
+                                <apex:inputText value="{!name}" styleClass="{! if(LEN(errorMessages['name'])>0 ,'invalid','') }" onchange="checkValue(this);" id="inputName" maxLength="121">
+                                    <apex:actionSupport event="onblur" action="{!validateName}" rerender="name" />
+                                </apex:inputText>
+                                <apex:outputLabel styleClass="{! if(name!='','active','') }">Nome Completo</apex:outputLabel>
+                            </div>
+                            <apex:outputPanel layout="none" rendered="{!LEN(errorMessages['name'])>0}" >
+                                <apex:outputLabel styleClass="errorLabel">{!errorMessages['name']}</apex:outputLabel>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel id="email">
+                            <div class="input-field">
+                                <apex:inputText value="{!email}" styleClass="{! if(LEN(errorMessages['email'])>0 ,'invalid','') }" id="inputEmail" onchange="checkValue(this);" maxLength="80">
+                                    <apex:actionSupport event="onblur" action="{!validateEmail}" rerender="email"/>
+                                </apex:inputText>
+                                <apex:outputLabel styleClass="{! if(email!='','active','') }">Email</apex:outputLabel>
+                            </div>
+                            <apex:outputPanel layout="none" rendered="{!LEN(errorMessages['email'])>0}">
+                                <apex:outputLabel styleClass="errorLabel">{!errorMessages['email']}</apex:outputLabel>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                        
+                        <div>
+                            <div class="input-field">
+                                <apex:inputText value="{!mobile}" onchange="checkValue(this);" id="inputMobile" maxLength="40"/>
+                                <label>Telemóvel / Telefone</label>
+                            </div>
+                        </div>
+                        
+                        
+                        <div id="address-group">
+                            <div>
+                                <div class="input-field">
+                                    <label>Rua</label>
+                                    <apex:inputText value="{!street}" onchange="checkValue(this);" id="inputStreet" styleClass="{! if(LEN(errorMessages['street'])>0 ,'invalid','') }" maxLength="255"/> 
+                                </div>
+                                <apex:outputPanel layout="none" rendered="{!LEN(errorMessages['street'])>0}" >
+                                    <apex:outputLabel styleClass="errorLabel">{!errorMessages['street']}</apex:outputLabel>
+                                </apex:outputPanel>
+                            </div>
+                            <div style="display:inline-block; width:45%;">
+                                <div class="input-field">
+                                    <label>Código Postal</label>
+                                    <apex:inputText value="{!postalCode}" onchange="checkValue(this);" id="inputCodPost" styleClass="{! if(LEN(errorMessages['postalCode'])>0 ,'invalid','') }" maxLength="20"/> 
+                                </div>
+                                <apex:outputPanel layout="none" rendered="{!LEN(errorMessages['postalCode'])>0}" >
+                                    <apex:outputLabel styleClass="errorLabel">{!errorMessages['postalCode']}</apex:outputLabel>
+                                </apex:outputPanel>
+                            </div>
+                            <div style="display:inline-block; width:50%; float:right;">
+                                <div class="input-field">
+                                    <label>Localidade</label>
+                                    <apex:inputText value="{!city}" onchange="checkValue(this);" id="inputCity" styleClass="{! if(LEN(errorMessages['city'])>0 ,'invalid','') }" maxLength="40"/>  
+                                </div>
+                                <apex:outputPanel layout="none" rendered="{!LEN(errorMessages['city'])>0}" >
+                                    <apex:outputLabel styleClass="errorLabel">{!errorMessages['city']}</apex:outputLabel>
+                                </apex:outputPanel>
+                            </div>
+                            <div class="input-field" >
+                                <apex:selectList value="{!country}" onchange="checkValue(this)" id="inputCountry">
+                                    <apex:selectOptions value="{!countriesList}" />
+                                </apex:selectList>
+                                <label>País</label>
+                            </div>
+                        </div>
+                        
+                        
+                        <div id="consentimentos">
+                            <blockquote>
+                                <apex:outputText value="{!campaign.rgpd__Texto_Consentimento__c}" escape="false" styleClass="text-consentimento"/>
+                            </blockquote>  
+                            
+                            <!--<apex:selectCheckboxes value="{!consentimentos}">
+                                <apex:selectOptions value="{!myCheckboxes}" /> 
+                            </apex:selectCheckboxes> -->
+                            
+                            <div class="questions">
+                               <apex:repeat value="{!listConsentimentos}" var="c">
+                                    <div>
+                                        <div>
+                                            <p>{!c.label}</p> 
+                                            <apex:outputPanel layout="none" rendered="{!LEN(errorMessages[c.name])>0}" >
+                                                <div>
+                                                    <apex:outputLabel styleClass="errorLabel">{!errorMessages[c.name]}</apex:outputLabel>
+                                                </div>
+                                            </apex:outputPanel>
+                                            <apex:selectRadio value="{!c.value}" >
+                                                <apex:selectOption itemLabel="Sim" itemValue="Sim"/>
+                                                <apex:selectOption itemLabel="Não" itemValue="Não"/>
+                                            </apex:selectRadio>
+                                        </div>
+                                    </div>
+                                </apex:repeat>
+                            </div>
+                        </div> 
+                        
+                        <div id="deleteAccountQuestion" > 
+                            <apex:outputPanel layout="none" rendered="{!LEN(errorMessages['deleteAccount'])>0}" >
+                                <div>
+                                    <apex:outputLabel styleClass="errorLabel">{!errorMessages['deleteAccount']}</apex:outputLabel>
+                                </div>
+                            </apex:outputPanel>
+                            <div>
+                                <apex:inputCheckbox value="{!deleteAccount}"/> 
+                                <label>Confirmo que pretendo o esquecimento dos meus dados?</label>
+                            </div>
+                        </div>
+                        
+                        
+                        <apex:commandButton value="Confirmar" styleClass="btn waves-effect waves-light" action="{!submit}" /><!--onclick="return checkQuestions();"-->
+                        
+                        <div class="modal" id="modal1">
+                            <div class="modal-content">
+                                <h4>Atenção</h4>
+                                <p>Ao limpar este campo estará a indicar que devemos esquecer esta informação sobre si.</p>
+                                <p>Caso pretenda pedir o esquecimento de todos os seus dados, por favor apague todos os campos deste formulário.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Tomei conhecimento</a>
+                            </div>
+                        </div>
+                        <div class="modal" id="modal2">
+                            <div class="modal-content">
+                                <h4>Atenção</h4>
+                                <p>Não selecionando as opções de consentimento deixaremos de partilhar as nossas notícias consigo.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Tomei conhecimento</a>
+                            </div>
+                        </div>
+                    </apex:form> 
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!submitted == true}">
+                    <apex:outputText escape="false" value="{!campaign.rgpd__Confirmation_text__c}" />
+                </apex:outputPanel>
+            </div>
+            
+        </div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+        <script>
+        let showModal = true;
+        let emailValue = '{!JSENCODE(email)}';
+        let mobileValue = '{!JSENCODE(mobile)}';
+        let inputStreetValue = '{!JSENCODE(street)}';
+        let inputCodPostValue = '{!JSENCODE(postalCode)}';
+        let inputCityValue = '{!JSENCODE(city)}';
+        let inputCountryValue = '{!JSENCODE(country)}';
+        
+        $(document).ready(function() { 
+            $('input[type=checkbox], input[type=radio]').each(function() {
+                let label;
+                if(this.nextSibling.nextSibling){
+                    label = this.nextSibling.nextSibling.innerText
+                    this.nextSibling.nextSibling.remove();
+                }else{
+                    label = this.nextSibling.innerText;
+                    this.nextSibling.remove();
+                }
+                
+                if(this.type=="radio")
+                    $(this).addClass("with-gap");
+                $(this).wrapAll( "<label/>");
+                $(this).after('<span>'+label+'</span>');
+                
+                
+                let parentDiv = this.closest("div"); 
+                if($("p", parentDiv).length > 0){
+                    if(/*this.defaultValue*/$("p", parentDiv)[0].innerText === 'Receber notícias por Email'){
+                        if(emailValue == ""){
+                            /*this.checked = false;
+                            $(this).closest("td").hide();*/
+                            $(this).closest("div").hide();
+                        }else{
+                            //$(this).closest("td").show();
+                            $(this).closest("div").show();
+                        }
+                    }else if(/*this.nextSibling.innerText.toLowerCase()*/$("p", parentDiv)[0].innerText.toLowerCase() === "receber por email oportunidades de voluntariado"){
+                        if(emailValue == ""){
+                            /*this.checked = false;
+                            $(this).closest("td").hide();*/
+                            $(this).closest("div").hide();
+                        }else{
+                            //$(this).closest("td").show();
+                            $(this).closest("div").show();
+                        }
+                    }else if(/*this.defaultValue*/$("p", parentDiv)[0].innerText === 'Receber notícias por Telemóvel'){
+                        if(mobileValue == ""){
+                            /*this.checked = false;
+                            $(this).closest("td").hide();*/
+                            $(this).closest("div").hide();
+                        }else{
+                            //$(this).closest("td").show();
+                            $(this).closest("div").show();
+                        }
+                    }else if( /*this.defaultValue*/$("p", parentDiv)[0].innerText === 'Receber notícias por Correio' ){
+                        if(inputStreetValue === "" && inputCodPostValue === "" && inputCityValue === ""){
+                            /*this.checked = false;
+                            $(this).closest("td").hide();*/
+                            $(this).closest("div").hide();
+                        }else{
+                            //$(this).closest("td").show();
+                            $(this).closest("div").show();
+                        }
+                    }
+                }
+            });
+            
+            checkEmptyValues();
+            
+            $('.modal').modal({ dismissible: false });
+            $('select').formSelect();
+        });
+        
+        
+        
+        function checkValue(input){
+            let value = input.value;
+            console.log(value)
+            
+            //fazer aparecer a modal
+            if(showModal == true && value == ""){
+                showModal = false;
+                $('#modal1').modal('open');          
+            }
+            
+            //fazer desaparecer ou aparecer as checkboxes conforme os campos do contacto preenchidos
+            if(input.id.includes("inputStreet"))
+                inputStreetValue = value;
+            else if(input.id.includes("inputCodPost"))
+                inputCodPostValue = value;
+                else if(input.id.includes("inputCity"))
+                    inputCityValue = value;
+                    else if(input.id.includes("inputCountry"))
+                        inputCountryValue = value;
+            
+            $('input[type=radio]').each(function() {
+                let parentDiv = this.closest("div"); 
+                if($("p", parentDiv).length > 0){
+                    if(input.id.includes("inputEmail") && /*this.defaultValue*/$("p", parentDiv)[0].innerText === 'Receber notícias por Email'){
+                        if(value == ""){
+                            /*this.checked = false;
+                            $(this).closest("td").hide();*/
+                            $(this).closest("div").hide();
+                        }else{
+                            //$(this).closest("td").show();
+                            $(this).closest("div").show();
+                        }
+                    }else if(input.id.includes("inputEmail") && /*this.nextSibling.innerText.toLowerCase()*/$("p", parentDiv)[0].innerText.toLowerCase() === "receber por email oportunidades de voluntariado"){
+                        if(value == ""){
+                            /*this.checked = false;
+                            $(this).closest("td").hide();*/
+                            $(this).closest("div").hide();
+                        }else{
+                            //$(this).closest("td").show();
+                            $(this).closest("div").show();
+                        }
+                    }else if(input.id.includes("inputMobile") && /*this.defaultValue*/$("p", parentDiv)[0].innerText === 'Receber notícias por Telemóvel'){
+                        if(value == ""){
+                            /*this.checked = false;
+                            $(this).closest("td").hide();*/
+                            $(this).closest("div").hide();
+                        }else{
+                            //$(this).closest("td").show();
+                            $(this).closest("div").show();
+                        }
+                    }else if( /*this.defaultValue*/$("p", parentDiv)[0].innerText === 'Receber notícias por Correio' ){
+                        if(inputStreetValue === "" && inputCodPostValue === "" && inputCityValue === ""){
+                            /*this.checked = false;
+                            $(this).closest("td").hide();*/
+                            $(this).closest("div").hide();
+                        }else{
+                            //$(this).closest("td").show();
+                            $(this).closest("div").show();
+                        }
+                    }
+                }
+            });
+            
+            
+            //verificar se tudo está ou não vazio e trocar entre a checkbox de esquecer conta
+            checkEmptyValues();
+        }
+        
+        
+        /*let showModalSubmit = true;
+        function checkQuestions(){
+            let questionCount = $("#consentimentos input[type=radio]").filter(function() {
+                return $(this).closest("td").is(":visible");
+            });
+            
+            let empty = $("#consentimentos input[type=radio]").filter(function() {
+                return this.checked === false && $(this).closest("td").is(":visible");
+            });
+                        
+            if(showModalSubmit == true && empty.length === questionCount.length && questionCount.length > 0){
+                showModalSubmit = false;
+                $('#modal2').modal('open'); 
+                return false;
+            }
+        }*/
+        
+            function checkEmptyValues(){
+                //verificar se tudo está ou não vazio e trocar entre a checkbox de esquecer conta
+                let empty = $("input[type='text']").filter(function() {
+                    return $.trim(this.value) === "";
+                });
+                
+                console.log(empty)
+                let auxLength = 0;
+                for(i=0;i<empty.length;i++){
+                    if(!empty[i].id.includes('inputName') && !empty[i].className.includes("select"))
+                        auxLength++;
+                }
+                
+                console.log(empty.length);
+                console.log(auxLength);
+                
+                if(empty.length === 5 && auxLength === 5 || empty.length === 6 && auxLength === 5 || empty.length === 7){
+                    $("#consentimentos").hide();
+                    $("#deleteAccountQuestion").show();
+                }else{
+                    $("#consentimentos").show();
+                    $("#deleteAccountQuestion").hide();
+                }
+            }
+        </script>
+    </body>
+</apex:page>

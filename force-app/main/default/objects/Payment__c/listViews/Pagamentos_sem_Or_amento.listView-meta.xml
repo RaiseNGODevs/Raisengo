@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pagamentos_sem_Or_amento</fullName>
+    <columns>NAME</columns>
+    <columns>Budget__c</columns>
+    <columns>Scheduled_Date__c</columns>
+    <columns>Payment_Amount__c</columns>
+    <columns>Account__c</columns>
+    <columns>Entry_Date__c</columns>
+    <columns>Transaction__c</columns>
+    <columns>Stage__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Budget__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Scheduled_Date__c</field>
+        <operation>lessThan</operation>
+        <value>THIS_YEAR</value>
+    </filters>
+    <filters>
+        <field>Stage__c</field>
+        <operation>notEqual</operation>
+        <value>Paid</value>
+    </filters>
+    <label>Pagamentos sem Orçamento</label>
+</ListView>

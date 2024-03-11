@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PM_LoE_Days__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>The expected Level of Effort (LoE) from your Project Manager in each phase. In case of need, your PM can invite other team member to participate in the process.</inlineHelpText>
+    <label>Your PM LoE (Days)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

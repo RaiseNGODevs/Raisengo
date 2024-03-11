@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RGPD_Follow_up</fullName>
+    <columns>NAME</columns>
+    <columns>Contact__c</columns>
+    <columns>Account_Name__c</columns>
+    <columns>Account_Recordtype__c</columns>
+    <columns>Follow_up_Email__c</columns>
+    <columns>Follow_up_Email_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Event_Form__c</field>
+        <operation>equals</operation>
+        <value>Guia RGPD</value>
+    </filters>
+    <filters>
+        <field>Account_Recordtype__c</field>
+        <operation>equals</operation>
+        <value>Prospecto_ONG</value>
+    </filters>
+    <filters>
+        <field>Follow_up_Email__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>RGPD - Follow-up</label>
+</ListView>

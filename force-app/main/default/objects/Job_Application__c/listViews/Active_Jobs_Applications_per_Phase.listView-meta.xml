@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_Jobs_Applications_per_Phase</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>NAME</columns>
+    <columns>Contact__c</columns>
+    <columns>Job_Offer__c</columns>
+    <columns>CV__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Job_Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <label>Active Job Applications per Phase</label>
+</ListView>

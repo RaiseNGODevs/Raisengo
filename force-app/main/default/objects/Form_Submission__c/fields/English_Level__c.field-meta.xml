@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>English_Level__c</fullName>
+    <externalId>false</externalId>
+    <label>English Level</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Iniciante (A1, A2)</fullName>
+                <default>false</default>
+                <label>Iniciante (A1, A2)</label>
+            </value>
+            <value>
+                <fullName>Intermédio (B1, B2)</fullName>
+                <default>false</default>
+                <label>Intermédio (B1, B2)</label>
+            </value>
+            <value>
+                <fullName>Avançado (C1, C2)</fullName>
+                <default>false</default>
+                <label>Avançado (C1, C2)</label>
+            </value>
+            <value>
+                <fullName>Beginner (A1, A2)</fullName>
+                <default>false</default>
+                <label>Beginner (A1, A2)</label>
+            </value>
+            <value>
+                <fullName>Intermediate (B1, B2)</fullName>
+                <default>false</default>
+                <label>Intermediate (B1, B2)</label>
+            </value>
+            <value>
+                <fullName>Advanced (C1, C2)</fullName>
+                <default>false</default>
+                <label>Advanced (C1, C2)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

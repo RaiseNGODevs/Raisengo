@@ -1,0 +1,21 @@
+<apex:page showHeader="true" sidebar="true" standardController="TASKRAY__trContributor__c" extensions="CreateWeeklyAllocationButton">
+
+    
+    <style type="text/css">
+    .customCommandButton{
+        width:172.53px !important; 
+        height:36px !important;
+        background:#0070D2 !important;
+        color:white !important;
+    }
+    .customCommandButton:hover{
+        background-color: #005dad !important; 
+    }
+    </style>
+    <apex:form >
+    <apex:outputPanel >
+                       <apex:commandButton styleClass="customCommandButton" action="{!UpdateCheckbox}" value="Criar Weekly Allocations"></apex:commandButton>
+                  </apex:outputPanel>
+    </apex:form>
+                  
+</apex:page>

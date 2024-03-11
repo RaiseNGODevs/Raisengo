@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Preencher_horas_no_projeto</name>
+        <label>Preencher horas no projeto</label>
+        <locationX>176</locationX>
+        <locationY>408</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>PorfavorpreenchenoprojetoasEstimatedHourseasTeamPermittedHours</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.TASKRAY__Project__r.Owner:User.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>DefaultWorkflowUser</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Por favor preenche no projeto as Estimated Hours e as Team Permitted Hours!</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Reajustar_horas_da_equipa</name>
+        <label>Reajustar horas da equipa</label>
+        <locationX>440</locationX>
+        <locationY>408</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>PorfavorrealizaarealocacaodashorasentreosTeamMembers</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.TASKRAY__Project__r.Owner:User.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>DefaultWorkflowUser</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Por favor realiza a realocação das horas entre os Team Members!</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>57.0</apiVersion>
+    <decisions>
+        <name>Email_Type</name>
+        <label>Email Type</label>
+        <locationX>440</locationX>
+        <locationY>288</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Project_Empty_Hours</name>
+            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.TASKRAY__Project__r.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>CRM_Consultancy</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.TASKRAY__Project__r.Estimated_Hours__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.TASKRAY__Project__r.Team_Permitted_Hours__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Preencher_horas_no_projeto</targetReference>
+            </connector>
+            <label>Project Empty Hours</label>
+        </rules>
+        <rules>
+            <name>Readjust_Member_Hours</name>
+            <conditionLogic>1 AND ((2 AND 3) OR 4)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.TASKRAY__Project__r.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>CRM_Consultancy</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.TaskRay_Team__r.Hours_Permitted__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.TaskRay_Team__r.Billable_Hours_x__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>$Record.TaskRay_Team__r.Hours_Permitted__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.TaskRay_Team__r.Hours_Permitted__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Reajustar_horas_da_equipa</targetReference>
+            </connector>
+            <label>Readjust Member Hours</label>
+        </rules>
+    </decisions>
+    <interviewLabel>SendEmailToProjectOwner_Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SendEmailToProjectOwner_Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>TASKRAY__Hours__c</field>
+            <operator>GreaterThan</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </filters>
+        <object>TASKRAY__trTaskTime__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <connector>
+                <targetReference>Email_Type</targetReference>
+            </connector>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>PorfavorpreenchenoprojetoasEstimatedHourseasTeamPermittedHours</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Olá {!$Record.TASKRAY__Project__r.Owner:User.FirstName},
+Parece que as Estimated Hours e/ou as Team Permitted Hours não estão preenchidas no Projeto {!$Record.TASKRAY__Project__r.Name}, com o Id do Salesforce {!$Record.TASKRAY__Project__r.Id}.
+Por favor, retifica esta questão.
+Obrigado.</text>
+    </textTemplates>
+    <textTemplates>
+        <name>PorfavorrealizaarealocacaodashorasentreosTeamMembers</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Olá {!$Record.TASKRAY__Project__r.Owner:User.FirstName},
+Parece que o Team Member {!$Record.TaskRay_Team__r.Name} registou horas no Projeto {!$Record.TASKRAY__Project__r.Name}, com o Id do Salesforce {!$Record.TASKRAY__Project__c}, e não tem horas permitidas, por favor realiza a realocação das horas entre os Team Members. 
+Obrigado.</text>
+    </textTemplates>
+</Flow>

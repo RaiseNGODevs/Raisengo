@@ -1,0 +1,104 @@
+<apex:page controller="EventQuestionnaire"
+           standardStylesheets="false"
+           applyBodyTag="false"
+           applyHtmlTag="false"
+           sidebar="false"
+           showHeader="false"
+           showChat="false"
+>
+    <html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <style>
+                .page-content-wrapper{
+                    max-width: 600px;
+                    padding: 20px;
+                    margin: auto;
+                }
+                .slds-form-element{
+                    margin-top: 20px !important;
+                }
+                .slds-form-element__label{
+                    margin-bottom: 5px !important;
+                    font-size: 1rem !important;
+                }
+                .slds-button{
+                    width: 100% !important;
+                    height: 45px !important;
+                }
+            </style>  
+        </head>
+        <apex:slds /> 
+        <body class="slds-scope page-content-wrapper">
+            
+            <apex:outputPanel rendered="{!subscription != null}">
+                <apex:outputPanel rendered="{! submitted == false}"> 
+                    <apex:form styleClass="slds-form slds-form_stacked">
+
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="select-02">A participação no Share N'GO contribuiu de alguma forma (ideias, boas-práticas, estratégias) para melhorar os desafios de gestão de dados e marketing da sua Organização? (1-6)</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-select_container">
+                                    <apex:selectList value="{!questionEventRelevance}" multiselect="false" size="1" styleClass="slds-select" id="select-02">
+                                        <apex:selectOption itemValue="" itemLabel="" />
+                                        <apex:selectOption itemValue="1" itemLabel="1 - Nada" />
+                                        <apex:selectOption itemValue="2" itemLabel="2 - Pouco" />
+                                        <apex:selectOption itemValue="3" itemLabel="3 - Insuficiente" />
+                                        <apex:selectOption itemValue="4" itemLabel="4 - Suficiente" />
+                                        <apex:selectOption itemValue="5" itemLabel="5 - Satisfatóriamente" />
+                                        <apex:selectOption itemValue="6" itemLabel="6 - Bastante" />
+                                    </apex:selectList> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="select-03">Recomendaria o Share N'GO a outros colegas? (1-6)</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-select_container">
+                                    <apex:selectList value="{!questionEventRecommendation}" multiselect="false" size="1" styleClass="slds-select" id="select-03">
+                                        <apex:selectOption itemValue="" itemLabel="" />
+                                        <apex:selectOption itemValue="1" itemLabel="1 - Não" />
+                                        <apex:selectOption itemValue="2" itemLabel="2 - Dificilmente" />
+                                        <apex:selectOption itemValue="3" itemLabel="3 - Provavelmente Não" />
+                                        <apex:selectOption itemValue="4" itemLabel="4 - Provavelmente Sim" />
+                                        <apex:selectOption itemValue="5" itemLabel="5 - Sim" />
+                                        <apex:selectOption itemValue="6" itemLabel="6 - Sem Dúvida" />
+                                    </apex:selectList> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="textarea-id-01">Pode dar algumas sugestões para melhorarmos o evento?</label>
+                            <div class="slds-form-element__control">
+                                <apex:inputTextarea value="{!questionSuggestions}" id="textarea-id-01" styleClass="slds-textarea"/>
+                            </div>
+                        </div>
+                                                <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="select-01">Durante o evento captámos algumas fotos onde pode estar presente. Se for o caso, podemos partilhar as suas fotos na nossa página do Facebook?</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-select_container">
+                                    <apex:selectList value="{!questionPhotoAuthorization}" multiselect="false" size="1" styleClass="slds-select" id="select-01">
+                                        <apex:selectOption itemValue="" itemLabel="" />
+                                        <apex:selectOption itemValue="Sim" itemLabel="Sim" />
+                                        <apex:selectOption itemValue="Sim" itemLabel="Não" />
+                                    </apex:selectList> 
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <apex:commandButton styleClass="slds-button slds-button_brand" value="Enviar" action="{!submit}" />
+                        </div>
+                    </apex:form>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{! submitted == true}"> 
+                    <div style="text-align:center;">
+                        <h1 style="font-size:16px">
+                            Obrigado pelo seu feedback. Até breve.
+                        </h1> 
+                    </div>
+                </apex:outputPanel>
+            </apex:outputPanel>
+        </body>
+    </html>
+</apex:page>

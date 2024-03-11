@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Serve para agrupar várias rúbricas do orçamento na mesma categoria.</inlineHelpText>
+    <label>Categoria</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Custos Fixos</fullName>
+                <default>false</default>
+                <label>Custos Fixos</label>
+            </value>
+            <value>
+                <fullName>Custos RH</fullName>
+                <default>false</default>
+                <label>Custos RH</label>
+            </value>
+            <value>
+                <fullName>Deslocações</fullName>
+                <default>false</default>
+                <label>Deslocações</label>
+            </value>
+            <value>
+                <fullName>IRC</fullName>
+                <default>false</default>
+                <label>IRC</label>
+            </value>
+            <value>
+                <fullName>IVA</fullName>
+                <default>false</default>
+                <label>IVA</label>
+            </value>
+            <value>
+                <fullName>Juros</fullName>
+                <default>false</default>
+                <label>Juros</label>
+            </value>
+            <value>
+                <fullName>Marketing</fullName>
+                <default>false</default>
+                <label>Marketing</label>
+            </value>
+            <value>
+                <fullName>Outros Custos</fullName>
+                <default>false</default>
+                <label>Outros Custos</label>
+            </value>
+            <value>
+                <fullName>Subscontração Serviços</fullName>
+                <default>false</default>
+                <label>Subscontração Serviços</label>
+            </value>
+            <value>
+                <fullName>Subsídios exploração</fullName>
+                <default>false</default>
+                <label>Subsídios exploração</label>
+            </value>
+            <value>
+                <fullName>Vendas</fullName>
+                <default>false</default>
+                <label>Vendas</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invoiced_This_Month</fullName>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Scheduled_Date__c</columns>
+    <columns>Payment_Amount__c</columns>
+    <columns>Invoice_Sent__c</columns>
+    <columns>Invoice_ID__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Invoice_Sent__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>Scheduled_Date__c</field>
+        <operation>equals</operation>
+        <value>THIS_MONTH</value>
+    </filters>
+    <label>Invoiced - This Month</label>
+</ListView>
