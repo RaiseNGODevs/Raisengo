@@ -163,11 +163,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.EntitlementMonthlyHours__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.EntitlementRemainingMonthlyHours__c</field>
         <readable>true</readable>
     </fieldPermissions>
