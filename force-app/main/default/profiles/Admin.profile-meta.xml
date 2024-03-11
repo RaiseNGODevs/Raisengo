@@ -793,14 +793,6 @@
         <layout>Case-Case Layout Support</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Case Layout Support 2%2E0</layout>
-        <recordType>Case.Incidents</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Case-Case Layout Support 2%2E0</layout>
-        <recordType>Case.Requests</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>CaseClose-Close Case Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
