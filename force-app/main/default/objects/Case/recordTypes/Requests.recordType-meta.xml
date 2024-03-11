@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Requests</fullName>
+    <active>true</active>
+    <businessProcess>Requests</businessProcess>
+    <description>Non urgent requests from a customer for something to be provided</description>
+    <label>Requests</label>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>Chatter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason</picklist>
+        <values>
+            <fullName>Complex functionality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing problem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Instructions not clear</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New problem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>User didn%27t attend training</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Resolution__c</picklist>
+        <values>
+            <fullName>Bug Fixed - Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bug Fixed - Salesforce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bug Fixed - Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client Informed%2FTrained</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client Unavaliable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>External - Client Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>External - Third Party Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Feature UpdatedCreated Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Feature UpdatedCreated Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Problem Created</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Question Solved - Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Question Solved - Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Redirected to Sales Team</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Severity__c</picklist>
+        <values>
+            <fullName>4 - Low</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TR_Impact_Level__c</picklist>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moderate</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TR_Support_Type__c</picklist>
+        <values>
+            <fullName>Bugfix</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DataFix</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Feature</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Data%2FRecords Update</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Form Adjustment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mailchimp Configurations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Modify Existing Feature</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Feature</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Question</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>User Access</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>sub_status__c</picklist>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reopen</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waiting for team Support</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

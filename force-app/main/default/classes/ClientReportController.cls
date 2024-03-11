@@ -6,6 +6,5 @@ public class ClientReportController {
         String projectId = ApexPages.currentPage().getParameters().get('pId');
         this.report = JSON.serialize(new ClientReport(projectId));
         System.debug(this.report);
-    }
-    
+    }  
 }

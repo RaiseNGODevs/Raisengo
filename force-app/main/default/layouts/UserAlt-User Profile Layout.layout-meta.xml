@@ -38,6 +38,10 @@
                 <behavior>Edit</behavior>
                 <field>Team_Department__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ClockifyUserId__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -95,10 +99,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>SigSupport__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Assinatura_para_Suporte__c</field>
             </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>

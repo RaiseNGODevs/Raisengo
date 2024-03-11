@@ -13,15 +13,18 @@ public class ClientReport {
     }
     
     public void setReportData(){
-        List<TASKRAY__Project__c> project = [SELECT Id, Name, Contracted_Hours__c, Contracted_Start_Date__c,
-                                             (SELECT Id, TASKRAY__Task__r.Name, TASKRAY__Date__c, TASKRAY__Hours__c, TASKRAY__Notes__c 
-                                              FROM TASKRAY__TaskRay_Time__r WHERE TASKRAY__Billable__c = true ORDER BY TASKRAY__Date__c DESC) 
-                                       		FROM TASKRAY__Project__c WHERE Id = :projectId];
+        List<ServiceContract> project = [SELECT Id, Name, TotalHoursPerContract__c, StartDate,
+                                        (SELECT Id, CaseId__r.Subject, StartTime__c, TrackedTime__c, Description__c 
+                                        FROM Time_Entries__r 
+                                        WHERE isBillable__c = true 
+                                        ORDER BY StartTime__c DESC)
+                                    FROM ServiceContract 
+                                    WHERE Id = :projectId];
         if( !project.isEmpty() ){
         	this.title = project[0].Name.escapeEcmaScript();
-            this.contractedHours = project[0].Contracted_Hours__c;
-        	this.tasks = ClientReportTask.getClientReportTasks(project[0].TASKRAY__TaskRay_Time__r);
-            this.startDate = project[0].Contracted_Start_Date__c;
+            this.contractedHours = project[0].TotalHoursPerContract__c;
+        	this.tasks = ClientReportTask.getClientReportTasks(project[0].Time_Entries__r);
+            this.startDate = project[0].StartDate;
         }
     }
     

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Resolution__c</fullName>
+    <description>Reason for case resolution</description>
+    <externalId>false</externalId>
+    <label>Resolution</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Bug Fixed - Delivery</fullName>
+                <default>false</default>
+                <label>Bug Fixed - Delivery</label>
+            </value>
+            <value>
+                <fullName>Bug Fixed - Salesforce</fullName>
+                <default>false</default>
+                <label>Bug Fixed - Salesforce</label>
+            </value>
+            <value>
+                <fullName>Bug Fixed - Support</fullName>
+                <default>false</default>
+                <label>Bug Fixed - Support</label>
+            </value>
+            <value>
+                <fullName>Client Informed/Trained</fullName>
+                <default>false</default>
+                <label>Client Informed/Trained</label>
+            </value>
+            <value>
+                <fullName>Client Unavaliable</fullName>
+                <default>false</default>
+                <label>Client Unavaliable</label>
+            </value>
+            <value>
+                <fullName>External - Client Error</fullName>
+                <default>false</default>
+                <label>External - Client Error</label>
+            </value>
+            <value>
+                <fullName>External - Third Party Error</fullName>
+                <default>false</default>
+                <label>External - Third Party Error</label>
+            </value>
+            <value>
+                <fullName>Feature UpdatedCreated Delivery</fullName>
+                <default>false</default>
+                <label>Feature Updated/Created - Delivery</label>
+            </value>
+            <value>
+                <fullName>Feature UpdatedCreated Support</fullName>
+                <default>false</default>
+                <label>Feature Updated/Created - Support</label>
+            </value>
+            <value>
+                <fullName>Problem Created</fullName>
+                <default>false</default>
+                <label>Problem Created</label>
+            </value>
+            <value>
+                <fullName>Question Solved - Delivery</fullName>
+                <default>false</default>
+                <label>Question Solved - Delivery</label>
+            </value>
+            <value>
+                <fullName>Question Solved - Support</fullName>
+                <default>false</default>
+                <label>Question Solved - Support</label>
+            </value>
+            <value>
+                <fullName>Redirected to Sales Team</fullName>
+                <default>false</default>
+                <label>Redirected to Sales Team</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
