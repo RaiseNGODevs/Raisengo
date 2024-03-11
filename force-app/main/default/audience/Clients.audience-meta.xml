@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Audience xmlns="http://soap.sforce.com/2006/04/metadata">
+    <audienceName>Clients</audienceName>
+    <container>Customer Support</container>
+    <criteria>
+        <criterion>
+            <criteriaNumber>1</criteriaNumber>
+            <criterionValue>
+                <entityField>Profile.Name</entityField>
+                <entityType>User</entityType>
+                <fieldValue>Customer Community Plus (RaiseNGO)</fieldValue>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>FieldBased</type>
+        </criterion>
+    </criteria>
+    <formulaFilterType>AllCriteriaMatch</formulaFilterType>
+    <isDefaultAudience>false</isDefaultAudience>
+    <targets>
+        <target>
+            <groupName>61bb83fe-931b-442c-90e2-6732edf799bc$#$ecc80586-41f9-46a9-b8bd-b899029dbac5</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Home_Create_Record_Button_Component</targetValue>
+        </target>
+        <target>
+            <groupName>f8f19a73-0670-4ed9-8a98-061a0989b564$#$d6da1d24-517e-4726-afb2-8c77dd002d5b</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Default_Navigation_Menu_Component_Properties</targetValue>
+        </target>
+        <target>
+            <groupName>61bb83fe-931b-442c-90e2-6732edf799bc$#$f12a52dc-d702-4726-a05a-8bc50907ab96</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Home_Create_Record_Button_1_Component</targetValue>
+        </target>
+    </targets>
+</Audience>
