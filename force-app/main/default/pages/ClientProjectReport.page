@@ -338,7 +338,7 @@
                 hoursUsed = setTableData(reportData.tasks);
                 createGraph(reportData.tasks);
             }
-            document.getElementById('used-hours').innerHTML = hoursUsed || '-';
+            document.getElementById('used-hours').innerHTML = hoursUsed.toFixed(2) || '-';
             var hourDifference = reportData.contractedHours - hoursUsed;
             document.getElementById('available-hours').innerHTML = reportData.contractedHours ? hourDifference.toFixed(2) : '-';
         }
