@@ -321,7 +321,7 @@
             totalCell  = totalRow.insertCell(3);
             labelCell.id = 'total-cell';
             var labelText  = document.createTextNode('Total');
-            var totalText  = document.createTextNode(hoursUsed);
+            var totalText  = document.createTextNode(hoursUsed.toFixed(2));
             labelCell.appendChild(labelText);
             totalCell.appendChild(totalText);
             
