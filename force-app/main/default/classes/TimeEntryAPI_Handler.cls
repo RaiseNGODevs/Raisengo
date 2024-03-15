@@ -19,7 +19,7 @@ public class TimeEntryAPI_Handler {
         if(!databaseEntry.isEmpty()){
             retrieveObjects(timeEntry, databaseEntry[0]);
         }else{
-            new IntegrationLogCreator('Clockify-API', 'Update', 'Time Entry not found in database', 'Ignored', Json.serialize(timeEntry)).publish();
+            retrieveObjects(timeEntry, new TimeEntry__c());
         }
     }
     public static void deleteAPI(RestRequest req){
@@ -46,7 +46,7 @@ public class TimeEntryAPI_Handler {
         List<ServiceContract> entryProject = new List<ServiceContract>();
         entryProject.addAll([SELECT ID FROM ServiceContract WHERE ClockifyProjectId__c=:timeEntry.projectId LIMIT 1]);
         if(entryUser.isEmpty() || entryProject.isEmpty()){
-            new IntegrationLogCreator('Clockify-API', 'Create-Manually', 'Project or User not found', 'Ignored', Json.serialize(timeEntry)).publish();
+            new IntegrationLogCreator('Clockify-API', 'Retrieve-Objects', 'Project or User not found', 'Ignored', Json.serialize(timeEntry)).publish();
             return;
         }
         if(timeEntry.task != null){
