@@ -46,7 +46,12 @@ public class TimeEntryAPI_Handler {
         List<ServiceContract> entryProject = new List<ServiceContract>();
         entryProject.addAll([SELECT ID FROM ServiceContract WHERE ClockifyProjectId__c=:timeEntry.projectId LIMIT 1]);
         if(entryUser.isEmpty() || entryProject.isEmpty()){
-            new IntegrationLogCreator('Clockify-API', 'Retrieve-Objects', 'Project or User not found', 'Ignored', Json.serialize(timeEntry)).publish();
+            if(entry.ID!=null){
+                Database.delete(entry);
+                new IntegrationLogCreator('Clockify-API', 'Retrieve-Objects', 'Entry Deleted For Project Not Found Change', 'Ignored', Json.serialize(timeEntry)).publish();
+            }else{
+                new IntegrationLogCreator('Clockify-API', 'Retrieve-Objects', 'Project or User not found', 'Ignored', Json.serialize(timeEntry)).publish();
+            }
             return;
         }
         if(timeEntry.task != null){
