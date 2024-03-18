@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>true</sorted>
+    <standardValue>
+        <fullName>Data/Records Update</fullName>
+        <default>false</default>
+        <label>Data/Records Update</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Form Adjustment</fullName>
+        <default>false</default>
+        <label>Form Adjustment</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Form Error</fullName>
+        <default>false</default>
+        <label>Form Error</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Mailchimp Configurations</fullName>
+        <default>false</default>
+        <label>Mailchimp Configurations</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Mailchimp Problem</fullName>
+        <default>false</default>
+        <label>Mailchimp Problem</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Modify Existing Feature</fullName>
+        <default>false</default>
+        <label>Modify Existing Feature</label>
+    </standardValue>
+    <standardValue>
+        <fullName>New Feature</fullName>
+        <default>false</default>
+        <label>New Feature</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Payment Integrations</fullName>
+        <default>false</default>
+        <label>Payment Integrations</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Question</fullName>
+        <default>false</default>
+        <label>Question</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Report/Dashboard Error</fullName>
+        <default>false</default>
+        <label>Report/Dashboard Error</label>
+    </standardValue>
+    <standardValue>
+        <fullName>RSK Problem</fullName>
+        <default>false</default>
+        <label>RSK Problem</label>
+    </standardValue>
+    <standardValue>
+        <fullName>SEPA &amp; Bank Transfers</fullName>
+        <default>false</default>
+        <label>SEPA &amp; Bank Transfers</label>
+    </standardValue>
+    <standardValue>
+        <fullName>System Error</fullName>
+        <default>false</default>
+        <label>System Error</label>
+    </standardValue>
+    <standardValue>
+        <fullName>System Unavaliable</fullName>
+        <default>false</default>
+        <label>System Unavaliable</label>
+    </standardValue>
+    <standardValue>
+        <fullName>User Access</fullName>
+        <default>false</default>
+        <label>User Access</label>
+    </standardValue>
+</StandardValueSet>

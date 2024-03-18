@@ -1,0 +1,23 @@
+<template>
+<lightning-card title="Clockify Configuration" icon-name="utility:settings">
+    <div class="slds-m-left_medium">
+    <br>
+    <lightning-input type="text" data-id="createKey" label="Signing Create Key" value ={createKey} onchange={handleChangeCreateKey}> </lightning-input>
+    <br>
+    <lightning-input type="text" data-id="deleteKey" label="Signing Delete Key" value ={deleteKey} onchange={handleChangeDeleteKey}> </lightning-input>
+    <br>
+    <lightning-input type="text" data-id="stopKey" label="Signing Stop Key" value ={stopKey} onchange={handleChangeStopKey}> </lightning-input>
+    <br>
+    <lightning-input type="text" data-id="updateKey" label="Signing Update Key" value ={updateKey} onchange={handleChangeUpdateKey}> </lightning-input>
+    <br>
+    <lightning-input type="text" data-id="workspaceId" label="Workspace Id" value ={workspaceId} onchange={handleChangeWorkspaceId}> </lightning-input>
+    <br>
+    <lightning-input type="number" data-id="logsLifetime" label="Logs lifetime (in days)" value={logsLifetime} onchange={handleChangeLogsLifetime}></lightning-input>
+    <br>
+</div>
+<hr>
+<div class="slds-clearfix">
+    <lightning-button label="Save" onclick={save} class="slds-align_absolute-center" variant="brand"></lightning-button>
+</div>
+</lightning-card>
+</template>
