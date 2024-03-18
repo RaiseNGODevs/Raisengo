@@ -10,7 +10,7 @@ public class ClientReportTask {
         this.executionDate = taskTime.StartTime__c.date();
         this.duration = taskTime.TrackedTime__c;
         if( String.isNotBlank(taskTime.Description__c) )
-        	getCleanString(this.notes = taskTime.Description__c.escapeEcmaScript());
+        	this.notes = getCleanString(taskTime.Description__c.escapeEcmaScript());
     }
     
     public static List<ClientReportTask> getClientReportTasks(List<TimeEntry__c> taskTimes){
