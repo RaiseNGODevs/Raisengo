@@ -14,7 +14,7 @@ public class ClientReport {
     
     public void setReportData(){
         List<ServiceContract> project = [SELECT Id, Name, TotalHoursPerContract__c, StartDate,
-                                        (SELECT Id, CaseId__r.Subject, StartTime__c, TrackedTime__c/*, Description__c*/ 
+                                        (SELECT Id, CaseId__r.Subject, StartTime__c, TrackedTime__c, Description__c 
                                         FROM Time_Entries__r 
                                         WHERE isBillable__c = true 
                                         ORDER BY StartTime__c DESC)

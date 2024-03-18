@@ -204,6 +204,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Description__c</field>
+            <value>
+                <elementReference>TimeEntryCallout.2XX.description</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>EndTime__c</field>
             <value>
                 <elementReference>EndDateTime</elementReference>
@@ -213,12 +219,6 @@
             <field>StartTime__c</field>
             <value>
                 <elementReference>StartDateTime</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Task_Ray_ID__c</field>
-            <value>
-                <elementReference>TimeEntryCallout.2XX.description</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -411,7 +411,7 @@
             <targetReference>GetCaseRecords</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>AccountId</name>
         <dataType>String</dataType>
