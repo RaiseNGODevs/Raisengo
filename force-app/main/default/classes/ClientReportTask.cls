@@ -6,11 +6,11 @@ public class ClientReportTask {
     public Decimal duration 	{get; set;}
     
     public ClientReportTask(TimeEntry__c taskTime){
-        this.taskName = taskTime.CaseId__r == null ? '' : taskTime.CaseId__r.Subject.escapeEcmaScript();
+        this.taskName = taskTime.CaseId__r == null ? '' : getCleanString(taskTime.CaseId__r.Subject.escapeEcmaScript());
         this.executionDate = taskTime.StartTime__c.date();
         this.duration = taskTime.TrackedTime__c;
         if( String.isNotBlank(taskTime.Description__c) )
-        	this.notes = taskTime.Description__c.escapeEcmaScript();
+        	getCleanString(this.notes = taskTime.Description__c.escapeEcmaScript());
     }
     
     public static List<ClientReportTask> getClientReportTasks(List<TimeEntry__c> taskTimes){
@@ -20,5 +20,18 @@ public class ClientReportTask {
             	taskList.add(new ClientReportTask(taskTime));
         }
         return taskList;
+    }
+
+    public static String getCleanString(String inputString) {
+        if (String.isBlank(inputString)) return '';
+        String cleanedString = inputString.replaceAll('[áãâàä]', 'a')
+                                         .replaceAll('[éêèë]', 'e')
+                                         .replaceAll('[íîìï]', 'i')
+                                         .replaceAll('[óõôòö]', 'o')
+                                         .replaceAll('[úûùü]', 'u')
+                                         .replaceAll('[ç]', 'c');
+        cleanedString = cleanedString.replaceAll('[^a-zA-Z0-9\\s]', '');
+        cleanedString = cleanedString.replaceAll('\\r\\n|\\n|\\r', ' ');
+        return cleanedString;
     }
 }
