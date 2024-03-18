@@ -6,11 +6,11 @@ public class ClientReportTask {
     public Decimal duration 	{get; set;}
     
     public ClientReportTask(TimeEntry__c taskTime){
-        this.taskName = taskTime.CaseId__r == null ? '' : getCleanString(taskTime.CaseId__r.Subject.escapeEcmaScript());
+        this.taskName = taskTime.CaseId__r == null ? '' : getCleanString(taskTime.CaseId__r.Subject);
         this.executionDate = taskTime.StartTime__c.date();
         this.duration = taskTime.TrackedTime__c;
         if( String.isNotBlank(taskTime.Description__c) )
-        	this.notes = getCleanString(taskTime.Description__c.escapeEcmaScript());
+        	this.notes = getCleanString(taskTime.Description__c);
     }
     
     public static List<ClientReportTask> getClientReportTasks(List<TimeEntry__c> taskTimes){
