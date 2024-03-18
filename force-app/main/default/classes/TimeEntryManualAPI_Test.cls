@@ -40,7 +40,7 @@ public with sharing class TimeEntryManualAPI_Test {
         TimeEntry__c te = new TimeEntry__c();
         te.ClockifyTimeEntryId__c = '11';
         te.CaseId__c = cas.Id;
-        //te.Description__c = 'Teste';
+        te.Description__c = 'Teste';
         te.StartTime__c = DateTime.now();
         te.EndTime__c = DateTime.now().addMinutes(5);
         insert te;
