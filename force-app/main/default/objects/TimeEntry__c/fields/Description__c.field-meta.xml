@@ -4,10 +4,9 @@
     <description>Field with time entry description to integrate with Clockify</description>
     <externalId>false</externalId>
     <label>Description</label>
-    <length>255</length>
-    <required>true</required>
+    <length>130000</length>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>LongTextArea</type>
+    <visibleLines>11</visibleLines>
 </CustomField>
