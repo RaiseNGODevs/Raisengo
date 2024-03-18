@@ -14,7 +14,7 @@ public class TimeEntryAPI_Handler {
             return;
         }
         List<TimeEntry__c> databaseEntry = new List<TimeEntry__c>();
-        databaseEntry.addAll([SELECT ID, ClockifyTimeEntryId__c, StartTime__c, EndTime__c, Description__c, UserId__c, CaseId__c
+        databaseEntry.addAll([SELECT ID, ClockifyTimeEntryId__c, StartTime__c, EndTime__c/*, Description__c*/, UserId__c, CaseId__c
                                  FROM TimeEntry__c WHERE ClockifyTimeEntryId__c=:timeEntry.id LIMIT 1]);
         if(!databaseEntry.isEmpty()){
             retrieveObjects(timeEntry, databaseEntry[0]);
@@ -71,7 +71,7 @@ public class TimeEntryAPI_Handler {
         entry.ClockifyTimeEntryId__c = timeEntry.id;
         entry.StartTime__c = getZuluDate(timeEntry.timeInterval.start);
         entry.EndTime__c = getZuluDate(timeEntry.timeInterval.end_x);
-        entry.Description__c = timeEntry.description;
+        //entry.Description__c = timeEntry.description;
         entry.isBillable__c = timeEntry.billable;
         entry.UserId__c = entryUser.ID;
         entry.Service_Contract__c = entryProject.ID;
