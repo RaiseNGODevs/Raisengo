@@ -12,7 +12,7 @@ public class ClientReportTest {
         Case task = new Case(Subject = taskName, Service_Contract__c = project.Id, Status = 'New', Origin = 'Email');
         insert task;
        	TimeEntry__c timeEntry = new TimeEntry__c(Service_Contract__c = project.Id,  isBillable__c = true, 
-                                                                        /*Description__c = timeNote,*/ StartTime__c = startDate, EndTime__c = endDate, CaseId__c = task.ID);
+                                                                        Description__c = timeNote, StartTime__c = startDate, EndTime__c = endDate, CaseId__c = task.ID);
         insert timeEntry;
         ClientReport report = new ClientReport(project.Id);
         
