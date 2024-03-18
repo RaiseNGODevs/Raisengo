@@ -3,7 +3,7 @@ public class ClientReportTest {
 	
     @isTest
     public static void reportCreation(){
-        String projectName = 'Test Project', taskName = 'Test Task', timeName = 'TIME-1', timeNote = 'DG: Time Note';
+        String projectName = 'Test Project', taskName = 'Test Task', timeName = 'TIME-1', timeNote = 'DG Time Note';
         DateTime startDate = Datetime.now().addHours(-3);
         DateTime endDate = Datetime.now();
         Decimal contractedHours = 10, timeHours = 3;
