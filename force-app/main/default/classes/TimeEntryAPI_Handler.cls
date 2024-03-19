@@ -76,6 +76,7 @@ public class TimeEntryAPI_Handler {
         entry.UserId__c = entryUser.ID;
         entry.Service_Contract__c = entryProject.ID;
         upsert entry;
+        new IntegrationLogCreator('Clockify-API', 'Create-Manually', 'Time Entry processed', 'Success', Json.serialize(timeEntry)).publish();
     }
     private static Datetime getZuluDate(String zulu) {
         Datetime d = Datetime.valueOf(zulu.replace('T',' '));
