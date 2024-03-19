@@ -240,7 +240,7 @@
         <name>GetCaseRecords</name>
         <label>Get Case Records</label>
         <locationX>380</locationX>
-        <locationY>134</locationY>
+        <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>GetServiceContract</targetReference>
@@ -273,10 +273,10 @@
         <name>GetServiceContract</name>
         <label>GetServiceContract</label>
         <locationX>380</locationX>
-        <locationY>242</locationY>
+        <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>TimeEntry</targetReference>
+            <targetReference>CheckInformation</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -344,12 +344,12 @@
         <name>TimeEntry</name>
         <label>Time Entry</label>
         <locationX>380</locationX>
-        <locationY>350</locationY>
+        <locationY>134</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>CheckInformation</targetReference>
+            <targetReference>GetCaseRecords</targetReference>
         </connector>
         <fields>
             <name>StartDateTime</name>
@@ -408,7 +408,7 @@
         <locationX>254</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>GetCaseRecords</targetReference>
+            <targetReference>TimeEntry</targetReference>
         </connector>
     </start>
     <status>Active</status>
