@@ -9,10 +9,10 @@ global class TimeEntryManualAPI {
             if(securityChecker(method, requestKey)){
                 switch on method {
                     when 'NEW_TIME_ENTRY' {
-                        TimeEntryAPI_Handler.createAPI(req);
+                        TimeEntryAPI_Handler.updateAPI(req);
                     }
                     when 'TIMER_STOPPED' {
-                        TimeEntryAPI_Handler.createApi(req);
+                        TimeEntryAPI_Handler.updateAPI(req);
                     }
                     when 'TIME_ENTRY_UPDATED' {
                         TimeEntryAPI_Handler.updateAPI(req);
