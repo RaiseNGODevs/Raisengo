@@ -85,9 +85,7 @@ public without sharing class DefaultEntitlement_Handler {
                         FROM ServiceContract
                         WHERE (ContactId IN :contactIds
                         OR AccountId IN :acctIds)
-                        AND Status = 'Active'
-                        AND EndDate >= Today 
-                        AND StartDate <= Today];
+                        AND Status = 'Active'];
         Map<ID, ServiceContract> serviceMap = new Map<ID, ServiceContract>();
         if(serviceContractList.isEmpty()){
             return;
