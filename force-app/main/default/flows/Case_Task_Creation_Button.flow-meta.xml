@@ -3,8 +3,8 @@
     <actionCalls>
         <name>createTaskCallout</name>
         <label>createTaskCallout</label>
-        <locationX>182</locationX>
-        <locationY>674</locationY>
+        <locationX>446</locationX>
+        <locationY>782</locationY>
         <actionName>ClockifyCreateTask.ClockifyCreateTask</actionName>
         <actionType>externalService</actionType>
         <connector>
@@ -37,8 +37,8 @@
     <assignments>
         <name>assignCalloutVariables</name>
         <label>assignCalloutVariables</label>
-        <locationX>182</locationX>
-        <locationY>566</locationY>
+        <locationX>446</locationX>
+        <locationY>674</locationY>
         <assignmentItems>
             <assignToReference>requestBody.name</assignToReference>
             <operator>Assign</operator>
@@ -53,10 +53,10 @@
     <decisions>
         <name>CheckInformation</name>
         <label>CheckInformation</label>
-        <locationX>380</locationX>
-        <locationY>350</locationY>
+        <locationX>644</locationX>
+        <locationY>566</locationY>
         <defaultConnector>
-            <targetReference>Time_Entry_Missing_Information</targetReference>
+            <targetReference>Task_Missing_Information</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>MissingInformation</defaultConnectorLabel>
         <rules>
@@ -77,7 +77,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>TimeEntry</targetReference>
+                <targetReference>assignCalloutVariables</targetReference>
             </connector>
             <label>hasAllInformation</label>
         </rules>
@@ -85,10 +85,10 @@
     <decisions>
         <name>CheckResponseStatus</name>
         <label>CheckResponseStatus</label>
-        <locationX>182</locationX>
-        <locationY>782</locationY>
+        <locationX>446</locationX>
+        <locationY>890</locationY>
         <defaultConnector>
-            <targetReference>Time_Entry_Returned_Error</targetReference>
+            <targetReference>Task_Returned_Error</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>IsError</defaultConnectorLabel>
         <rules>
@@ -105,6 +105,31 @@
                 <targetReference>Update_Case_Record</targetReference>
             </connector>
             <label>IsSuccess</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>IsSynced</name>
+        <label>IsSynced</label>
+        <locationX>347</locationX>
+        <locationY>242</locationY>
+        <defaultConnector>
+            <targetReference>Task_Creation_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Desync</defaultConnectorLabel>
+        <rules>
+            <name>Sync</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>TaskId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SyncedScreen</targetReference>
+            </connector>
+            <label>Sync</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -132,8 +157,8 @@
     <recordLookups>
         <name>Get_Service_Contract</name>
         <label>Get Service Contract</label>
-        <locationX>380</locationX>
-        <locationY>242</locationY>
+        <locationX>644</locationX>
+        <locationY>458</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>CheckInformation</targetReference>
@@ -155,11 +180,11 @@
     <recordLookups>
         <name>GetCaseRecords</name>
         <label>Get Case Records</label>
-        <locationX>380</locationX>
+        <locationX>347</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Service_Contract</targetReference>
+            <targetReference>IsSynced</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -175,6 +200,10 @@
             <field>AccountId</field>
         </outputAssignments>
         <outputAssignments>
+            <assignToReference>TaskId</assignToReference>
+            <field>Clockify_Task_Id__c</field>
+        </outputAssignments>
+        <outputAssignments>
             <assignToReference>ClockifyTaskName</assignToReference>
             <field>Clockify_Task_Name__c</field>
         </outputAssignments>
@@ -186,8 +215,8 @@
     <recordUpdates>
         <name>Update_Case_Record</name>
         <label>Update Case Record</label>
-        <locationX>50</locationX>
-        <locationY>890</locationY>
+        <locationX>314</locationX>
+        <locationY>998</locationY>
         <connector>
             <targetReference>Confirmation_Screen</targetReference>
         </connector>
@@ -210,24 +239,60 @@
     <screens>
         <name>Confirmation_Screen</name>
         <label>Time Entry - Success</label>
-        <locationX>50</locationX>
-        <locationY>998</locationY>
+        <locationX>314</locationX>
+        <locationY>1106</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <fields>
             <name>DisplayText</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://raisengo--svcproj.sandbox.file.force.com/sfc/servlet.shepherd/version/download/068UE000000XJLd?asPdf=false&amp;amp;operationContext=CHATTER&quot; alt=&quot;Integração SF Clockify - P.gif&quot;&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Time entry created successfully!&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://raisengo--svcproj.sandbox.file.force.com/sfc/servlet.shepherd/version/download/068UE000000XJLd?asPdf=false&amp;amp;operationContext=CHATTER&quot; alt=&quot;Integração SF Clockify - P.gif&quot;&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Task created successfully!&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
     <screens>
-        <name>Time_Entry_Missing_Information</name>
-        <label>Time Entry - Missing Information</label>
-        <locationX>578</locationX>
-        <locationY>458</locationY>
+        <name>SyncedScreen</name>
+        <label>SyncedScreen</label>
+        <locationX>50</locationX>
+        <locationY>350</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>displaySynched</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;Clockify Synched&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Task_Creation_Screen</name>
+        <label>Task Creation Screen</label>
+        <locationX>644</locationX>
+        <locationY>350</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Get_Service_Contract</targetReference>
+        </connector>
+        <fields>
+            <name>Display</name>
+            <fieldText>&lt;p&gt;Esta task não está sincronizada com o Clockify!&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Task Name: &lt;/strong&gt;{!ClockifyTaskName}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <nextOrFinishButtonLabel>Sinchronize</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Task_Missing_Information</name>
+        <label>Task - Missing Information</label>
+        <locationX>842</locationX>
+        <locationY>674</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -240,10 +305,10 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
-        <name>Time_Entry_Returned_Error</name>
-        <label>Time Entry - Returned Error</label>
-        <locationX>314</locationX>
-        <locationY>890</locationY>
+        <name>Task_Returned_Error</name>
+        <label>Task - Returned Error</label>
+        <locationX>578</locationX>
+        <locationY>998</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -255,28 +320,8 @@
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
-    <screens>
-        <name>TimeEntry</name>
-        <label>Time Entry</label>
-        <locationX>182</locationX>
-        <locationY>458</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>assignCalloutVariables</targetReference>
-        </connector>
-        <fields>
-            <name>Display</name>
-            <fieldText>&lt;p&gt;Pretende sincronizar este case com o Clockify?&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Task Name: &lt;/strong&gt;{!ClockifyTaskName}&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <nextOrFinishButtonLabel>Confirm</nextOrFinishButtonLabel>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
     <start>
-        <locationX>254</locationX>
+        <locationX>221</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>GetCaseRecords</targetReference>
