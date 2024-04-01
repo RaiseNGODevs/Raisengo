@@ -1,6 +1,7 @@
 import { LightningElement, wire} from 'lwc';
 import setCustomSettings from '@salesforce/apex/CustomSettings_CTRL.setCustomSettings';
 import getCustomSettings from '@salesforce/apex/CustomSettings_CTRL.getCustomSettings';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 export default class APIConfiguration extends LightningElement {
 
 	createKey = ''; 
@@ -55,9 +56,18 @@ export default class APIConfiguration extends LightningElement {
 								stopKey: this.stopKey,
 								deleteKey: this.deleteKey,
 								createKey: this.createKey}).then(response => {
-			alert(response)
+			this.showNotification(response, 'success')
 		}).catch(error => {
-			alert('Error: ' + error.body.message);
+			this.showNotification('Error: ' + error.body.message, 'error');
 		})
+	}
+	showNotification(response, type) {
+		const evt = new ShowToastEvent({
+		  title: 'Result',
+		  message: response,
+		  variant: type,
+		  mode: 'pester'
+		});
+		this.dispatchEvent(evt);
 	}
 }

@@ -1,5 +1,9 @@
 public class CustomSettings_CTRL {
-    private static final String BATCH_NAME = 'Delete Logs Batch';
+    private static final String LOGS_BATCH_NAME = 'Delete Logs Batch';
+    private static final String HOURS_BATCH_NAME = 'Calculate Project Hours Batch';
+    private static final String logsCron = '0 0 4 ? * SUN *';
+    private static final String hoursCron = '0 0 23 1/1 * ? *';
+
     @AuraEnabled(cacheable=true)
     public static ClockifySettings__c getCustomSettings() {
         return ClockifySettings__c.getInstance();
@@ -24,7 +28,8 @@ public class CustomSettings_CTRL {
         setting.workspaceId__c  = workspaceId;
         setting.LogsLifeTime__c = logsLifetime;
         update setting;
-        scheduleJob();
+        scheduleLogsJob();
+        scheduleHoursJob();
         return 'API Configuration successfully saved!';
     }
     
@@ -39,14 +44,20 @@ public class CustomSettings_CTRL {
         }
         return true;
     }
-    private static void scheduleJob() {
-        if(!existsJob()) {
-            System.schedule(BATCH_NAME, '0 0 4 ? * SUN *', new DeleteLogs_Batch());
+    private static void scheduleLogsJob() {
+        if(!existsJob(LOGS_BATCH_NAME)) {
+            System.schedule(LOGS_BATCH_NAME, logsCron, new DeleteLogs_Batch());
+        }
+    }
+
+    private static void scheduleHoursJob() {
+        if(!existsJob(HOURS_BATCH_NAME)) {
+            System.schedule(HOURS_BATCH_NAME, hoursCron, new ProjectHoursCalculator_Batch());
         }
     }
     
-    private static Boolean existsJob() {
-        List<CronTrigger> jobRecords = [SELECT Id FROM CronTrigger  where CronJobDetail.Name =: BATCH_NAME];
+    private static Boolean existsJob(String jobName) {
+        List<CronTrigger> jobRecords = [SELECT Id FROM CronTrigger  where CronJobDetail.Name =: jobName];
         if(jobRecords.isEmpty()){
             return false;
         }

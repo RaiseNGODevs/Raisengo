@@ -4,12 +4,7 @@ public with sharing class TimeEntryManualAPI_Test {
     @testSetup 
     static void init() {
 
-        ClockifySettings__c clockS = new ClockifySettings__c();
-        clockS.workspaceId__c = '1';
-        clockS.Signing_Update_Key__c = '2';
-        clockS.Signing_Stop_Key__c = '3';
-        clockS.Signing_Delete_Key__c = '4';
-        clockS.Signing_Create_Key__c = '5';
+        ClockifySettings__c clockS = testFactory.createSettings('1', '2', '3', '4', '5', null);
         insert clockS;
         
         Account a = new Account();
@@ -17,10 +12,7 @@ public with sharing class TimeEntryManualAPI_Test {
         a.ClockifyClientId__c = '6';
         insert a;
 
-        ServiceContract cront = new ServiceContract();
-        cront.Name = 'Teste';
-        cront.AccountId = a.ID;
-        cront.ClockifyProjectId__c = '7';
+        ServiceContract cront = testFactory.createServiceContract('Teste', a.ID, '7');
         insert cront;
 
         Case cas = new Case();
@@ -37,12 +29,7 @@ public with sharing class TimeEntryManualAPI_Test {
             ClockifyUserId__c = '9');
         insert u;
         
-        TimeEntry__c te = new TimeEntry__c();
-        te.ClockifyTimeEntryId__c = '11';
-        te.CaseId__c = cas.Id;
-        te.Description__c = 'Teste';
-        te.StartTime__c = DateTime.now();
-        te.EndTime__c = DateTime.now().addMinutes(5);
+        TimeEntry__c te = testFactory.createTimeEntry('11', cas.Id, 'Teste', DateTime.now(), DateTime.now().addMinutes(5), null);
         insert te;
 
     }
