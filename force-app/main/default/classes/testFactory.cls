@@ -27,4 +27,11 @@ public class testFactory {
         clockS.LogsLifeTime__c = logsTime;
         return clockS;
     }
+    public static Case createCase(String subject, String status){
+        Case ld = new Case();
+        ld.Subject = subject;
+        ld.Status = status;
+        ld.LastModifiedDate = Date.today().addDays(-8);
+        return ld;
+    }
 }
