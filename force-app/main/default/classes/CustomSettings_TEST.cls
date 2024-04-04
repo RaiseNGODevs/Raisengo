@@ -15,8 +15,8 @@ public with sharing class CustomSettings_TEST {
     
     @isTest
     static void testSetCustomSettingsPositive() {
-        CustomSettings_CTRL.setCustomSettings(30, 'teste','teste', 'teste', 'teste', 'teste');
-        ClockifySettings__c  ic = [SELECT id,Signing_Create_Key__c, Signing_Delete_Key__c, Signing_Stop_Key__c, Signing_Update_Key__c, workspaceId__c, LogsLifeTime__c
+        CustomSettings_CTRL.setCustomSettings(30, 7, 'teste','teste', 'teste', 'teste', 'teste');
+        ClockifySettings__c  ic = [SELECT id,Signing_Create_Key__c, autoCloseDays__c, Signing_Delete_Key__c, Signing_Stop_Key__c, Signing_Update_Key__c, workspaceId__c, LogsLifeTime__c
                                            FROM ClockifySettings__c];
         System.assertEquals(ic.Signing_Create_Key__c, 'teste', 'Create Key error!');
         System.assertEquals(ic.Signing_Delete_Key__c, 'teste', 'Delete Key error!');
