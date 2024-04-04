@@ -34,9 +34,9 @@
                 <label>Client Informed/Trained</label>
             </value>
             <value>
-                <fullName>Client Unavaliable</fullName>
+                <fullName>Client Unavailable</fullName>
                 <default>false</default>
-                <label>Client Unavaliable</label>
+                <label>Client Unavailable</label>
             </value>
             <value>
                 <fullName>External - Client Error</fullName>
