@@ -10,6 +10,7 @@ export default class APIConfiguration extends LightningElement {
 	updateKey = '';
 	workspaceId = '';
 	logsLifetime = null;
+	closeTime = null;
 
 	@wire(getCustomSettings, {})
 	wiredGetCustomSettings({error,data}) {
@@ -20,6 +21,7 @@ export default class APIConfiguration extends LightningElement {
 			this.updateKey = data["Signing_Update_Key__c"];
 			this.workspaceId = data["workspaceId__c"];
 			this.logsLifetime = data["LogsLifeTime__c"];
+			this.closeTime = data["autoCloseDays__c"];
 		}else if(error) {
 			console.error("error: " + error);
 		}
@@ -49,8 +51,13 @@ export default class APIConfiguration extends LightningElement {
 		this.logsLifetime = event.target.value;
 	}
 
+	handleChangeCloseTime(event) {
+		this.closeTime = event.target.value;
+	}
+
 	async save() {
 		await setCustomSettings({logsLifetime: this.logsLifetime, 
+								closeTime: this.closeTime,		
 								workspaceId: this.workspaceId, 
 								updateKey: this.updateKey,
 								stopKey: this.stopKey,
