@@ -1,6 +1,6 @@
 @isTest
 public with sharing class CustomSettings_TEST {
-    private static final String BATCH_NAME = 'Delete Logs Batch';
+    private static final String BATCH_NAME = 'DeleteLogs_Batch';
     @testSetup
     static void init() {
         ClockifySettings__c  cS = new ClockifySettings__c();
